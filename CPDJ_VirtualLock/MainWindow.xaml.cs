@@ -27,8 +27,6 @@ namespace CPDJ_VirtualLock
         public MainWindow()
         {
             InitializeComponent();
-
-            StartTimer(TimeSpan.FromSeconds(10));
         }
 
         private void StartTimer(TimeSpan time)
@@ -54,6 +52,16 @@ namespace CPDJ_VirtualLock
         private void OnTimerStop()
         {
 
+        }
+
+        private void ui_start_button_clicked(object sender, RoutedEventArgs e)
+        {
+            var start_button = sender as Button;
+            if (start_button == null)
+                throw new ArgumentException("ui_start_button_clicked:sender");
+            start_button.Visibility = Visibility.Hidden;
+
+            StartTimer(TimeSpan.FromSeconds(10));
         }
     }
 }
