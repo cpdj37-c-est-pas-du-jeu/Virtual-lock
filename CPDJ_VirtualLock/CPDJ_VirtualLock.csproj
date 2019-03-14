@@ -99,5 +99,9 @@
     <Resource Include="ressources\images\pixels_background.jpg" />
     <Resource Include="ressources\images\pixels_background_hd.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\images\busted.png" />
+    <Resource Include="ressources\images\top_secret.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

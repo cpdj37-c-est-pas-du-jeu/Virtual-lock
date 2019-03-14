@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,14 +21,15 @@ namespace CPDJ_VirtualLock
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private DispatcherTimer timer;
-        private TimeSpan remaining_time;
+        private TimeSpan remaining_time = TimeSpan.Zero;
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         private void StartTimer(TimeSpan time)
@@ -42,16 +45,19 @@ namespace CPDJ_VirtualLock
                     if (remaining_time == TimeSpan.Zero)
                     {
                         timer.Stop();
-                        OnTimerStop();
+                        OnPlayerDefeat();
                     }
                     remaining_time = remaining_time.Subtract(TimeSpan.FromSeconds(1));
+                    OnPropertyChanged("remaining_time");
+
                 }, Application.Current.Dispatcher
             );
         }
 
-        private void OnTimerStop()
+        private void OnPlayerDefeat()
         {
-
+            ui_grid_countdown.Visibility = Visibility.Collapsed;
+            ui_grid_failure.Visibility = Visibility.Visible;
         }
 
         private void ui_start_button_clicked(object sender, RoutedEventArgs e)
@@ -62,6 +68,12 @@ namespace CPDJ_VirtualLock
             start_button.Visibility = Visibility.Hidden;
 
             StartTimer(TimeSpan.FromSeconds(10));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
