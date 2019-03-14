@@ -7,14 +7,18 @@
         mc:Ignorable="d"
         Title="CPDJ : Virtual lock"
         Height="450" Width="800">
-    <Grid Background="DarkSlateGray">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <!--Background="DarkSlateGray"-->
+            <ImageBrush ImageSource="pack://application:,,,/ressources/images/pixels_background_hd.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
         <TextBlock
             Grid.Row="0" Name="ui_countdown"
-            Text="[^.^]" FontSize="150"
+            Text="[^.^]" FontSize="150" Foreground="DarkRed" FontWeight="ExtraBold"
             VerticalAlignment="Center" HorizontalAlignment="Center"
             />
         <Button
