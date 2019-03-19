@@ -77,12 +77,34 @@ namespace CPDJ_VirtualLock
             OnPropertyChanged("remaining_try");
             if (_remaining_try == 0)
             {
-                // freeze
+                FreezeInputs();
                 _remaining_try = 3;
             }
         }
+        private BackgroundWorker freeze_inputs_backgroundWorker;
+        private void FreezeInputs()
+        {
+            ui_dock_password.IsEnabled = false;
+            freeze_inputs_backgroundWorker = new BackgroundWorker
+            {
+                WorkerSupportsCancellation = true
+            };
+
+            freeze_inputs_backgroundWorker.DoWork += (sender, eventArg) =>
+            {
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3)); // todo : as configuration
+            };
+            freeze_inputs_backgroundWorker.RunWorkerCompleted += (sender, eventArg) =>
+            {
+                ui_dock_password.IsEnabled = true;
+                ui_passwordBox.Focus();
+            };
+
+            freeze_inputs_backgroundWorker.RunWorkerAsync();
+        }
         private void OnPlayerDefeat()
         {
+            freeze_inputs_backgroundWorker.CancelAsync();
             timer.Stop(); // useless
             ui_grid_countdown.Visibility = Visibility.Collapsed;
             ui_grid_failure.Visibility = Visibility.Visible;
