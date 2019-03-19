@@ -26,30 +26,16 @@
                 FontSize="150" Foreground="DarkRed" FontWeight="ExtraBold"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
             />
-            <DockPanel Grid.Row="1"
+            <Grid Grid.Row="1"
                        Visibility="Collapsed"
                        Name="ui_dock_password"
-                       LastChildFill="True">
-                <Label
-                    DockPanel.Dock="Right"
-                    Name="ui_remaining_try"
-                    Content="{Binding Path=remaining_try}" FontWeight="ExtraBold"
-                    FontSize="25" Foreground="DarkRed" Background="Black"
-                    BorderThickness="1" BorderBrush="DarkGray"
-                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    Margin="10,10,10,10"
-                    />
-                <ProgressBar
-                    DockPanel.Dock="Right"
-                    Visibility="Hidden"
-                    Name="ui_freeze_inputs_progressBar"
-                    Foreground="DarkRed" Background="Black"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
-                    Margin="10,10,10,10"
-                    Width="{Binding Path=ActualWidth, ElementName=ui_remaining_try}"
-                    />
+                       >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
                 <PasswordBox
-                    DockPanel.Dock="Left"
+                    Grid.Column="0"
                     Name="ui_passwordBox"
                     Margin="10,10,10,10"
                     Background="Black" Foreground="DarkGreen"
@@ -58,8 +44,27 @@
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center"
                     />
+                <Label
+                    Grid.Column="1"
+                    Name="ui_remaining_try"
+                    Content="{Binding Path=remaining_try}" FontWeight="ExtraBold"
+                    FontSize="25" Foreground="DarkRed" Background="Black"
+                    BorderThickness="1" BorderBrush="DarkGray"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Margin="10,10,10,10"
+                    />
+                <ProgressBar
+                    Grid.Column="1"
+                    DockPanel.Dock="Right"
+                    Visibility="Hidden"
+                    Name="ui_freeze_inputs_progressBar"
+                    Foreground="DarkRed" Background="Black"
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
+                    Margin="10,10,10,10"
+                    Width="{Binding Path=ActualWidth, ElementName=ui_remaining_try}"
+                    />
                 <!--MaxLength="8"-->
-            </DockPanel>
+            </Grid>
             <Button
                 Grid.Row="1" Name="ui_start_button"
                 Content="Start" FontSize="20"
