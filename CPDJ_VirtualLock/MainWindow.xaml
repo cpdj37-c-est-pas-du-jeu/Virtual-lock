@@ -15,21 +15,38 @@
 
         <Grid x:Name="ui_grid_countdown">
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
-            <!--Text="{Binding Path=remaining_time, StringFormat={}{0:hh\:mm\:ss}, FallbackValue=00:00:00}"-->
-            <TextBlock
-                Grid.Row="0" Name="ui_countdown"
-                Text="[^.^]"
-                FontSize="150" Foreground="DarkRed" FontWeight="ExtraBold"
-                VerticalAlignment="Center" HorizontalAlignment="Center"
-            />
-            <Grid Grid.Row="1"
-                       Visibility="Collapsed"
-                       Name="ui_dock_password"
-                       >
+            <Grid Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <!--Text="{Binding Path=remaining_time, StringFormat={}{0:hh\:mm\:ss}, FallbackValue=00:00:00}"-->
+                <TextBlock
+                    Grid.Row="0"
+                    Name="ui_countdown"
+                    Text="[^.^]"
+                    FontSize="150" Foreground="DarkRed" FontWeight="ExtraBold"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                />
+                <ProgressBar
+                    Grid.Row="1"
+                    Name="ui_remainingTime_progressBar"
+                    Visibility="Collapsed"
+                    Foreground="DarkRed" Background="Black"
+                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                    Margin="10,10,10,10"
+                />
+                <!--Width="{Binding Path=ActualWidth, ElementName=ui_countdown}"-->
+            </Grid>
+            <Grid
+                Name="ui_dock_password"
+                Grid.Row="2"
+                Visibility="Collapsed"
+                >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="1*"/>
@@ -43,7 +60,9 @@
                     FontSize="50" PasswordChar="*"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                    BorderBrush="DarkGreen"
                     />
+                    <!--MaxLength="8"-->
                 <Label
                     Grid.Column="1"
                     Name="ui_remaining_try"
@@ -63,10 +82,9 @@
                     Margin="10,10,10,10"
                     Width="{Binding Path=ActualWidth, ElementName=ui_remaining_try}"
                     />
-                <!--MaxLength="8"-->
             </Grid>
             <Button
-                Grid.Row="1" Name="ui_start_button"
+                Grid.Row="2" Name="ui_start_button"
                 Content="Start" FontSize="20"
                 Margin="20,20,20,20"
                 HorizontalAlignment="Center"

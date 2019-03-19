@@ -38,6 +38,10 @@ namespace CPDJ_VirtualLock
 
         private void StartTimer(TimeSpan time)
         {
+            ui_remainingTime_progressBar.Visibility = Visibility.Visible;
+            ui_remainingTime_progressBar.Minimum = 0;
+            ui_remainingTime_progressBar.Maximum = Convert.ToInt32(time.TotalSeconds); // // can throw overflow exception
+
             remaining_time = time;
             timer = new DispatcherTimer
             (
@@ -45,6 +49,7 @@ namespace CPDJ_VirtualLock
                 DispatcherPriority.Normal,
                 delegate
                 {
+                    ui_remainingTime_progressBar.Value = time.TotalSeconds - remaining_time.TotalSeconds;
                     ui_countdown.Text = remaining_time.ToString("c");
                     if (remaining_time == TimeSpan.Zero)
                     {
@@ -53,7 +58,6 @@ namespace CPDJ_VirtualLock
                     }
                     remaining_time = remaining_time.Subtract(TimeSpan.FromSeconds(1));
                     OnPropertyChanged("remaining_time");
-
                 }, Application.Current.Dispatcher
             );
         }
@@ -67,11 +71,13 @@ namespace CPDJ_VirtualLock
             else
                 OnPlayerBadInput();
         }
+
         public String remaining_try
         {
             get { return _remaining_try.ToString(); }
         }
         private int _remaining_try = 3;
+
         private void OnPlayerBadInput()
         {
             // add to try list
@@ -82,6 +88,7 @@ namespace CPDJ_VirtualLock
             {
                 FreezeInputs(TimeSpan.FromSeconds(3)); // todo : as configuration
                 _remaining_try = 3;
+                OnPropertyChanged("remaining_try");
             }
         }
         private BackgroundWorker freeze_inputs_backgroundWorker;
@@ -126,7 +133,10 @@ namespace CPDJ_VirtualLock
         }
         private void OnPlayerDefeat()
         {
-            freeze_inputs_backgroundWorker.CancelAsync();
+            if (freeze_inputs_backgroundWorker != null && freeze_inputs_backgroundWorker.WorkerSupportsCancellation)
+            {
+                freeze_inputs_backgroundWorker.CancelAsync();
+            }
             timer.Stop(); // useless
             ui_grid_countdown.Visibility = Visibility.Collapsed;
             ui_grid_failure.Visibility = Visibility.Visible;
