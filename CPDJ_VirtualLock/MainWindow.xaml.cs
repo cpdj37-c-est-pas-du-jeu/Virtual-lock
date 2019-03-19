@@ -23,6 +23,9 @@ namespace CPDJ_VirtualLock
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        // todo : state machine :
+        // ready -> running -> [input_enabled || input_frozen] -> stopped : [success || defeat]
+
         public MainWindow()
         {
             InitializeComponent();
@@ -77,27 +80,46 @@ namespace CPDJ_VirtualLock
             OnPropertyChanged("remaining_try");
             if (_remaining_try == 0)
             {
-                FreezeInputs();
+                FreezeInputs(TimeSpan.FromSeconds(3)); // todo : as configuration
                 _remaining_try = 3;
             }
         }
         private BackgroundWorker freeze_inputs_backgroundWorker;
-        private void FreezeInputs()
+        private void FreezeInputs(TimeSpan duration)
         {
+            if (duration < TimeSpan.FromSeconds(1))
+                throw new ArgumentException("FreezeInputs : invalid duration (<1s)");
+
+            ui_remaining_try.Visibility = Visibility.Hidden;
+            ui_freeze_inputs_progressBar.Visibility = Visibility.Visible;
             ui_dock_password.IsEnabled = false;
+
             freeze_inputs_backgroundWorker = new BackgroundWorker
             {
-                WorkerSupportsCancellation = true
+                WorkerSupportsCancellation = true,
+                WorkerReportsProgress = true
             };
 
             freeze_inputs_backgroundWorker.DoWork += (sender, eventArg) =>
             {
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3)); // todo : as configuration
+                int duration_fragments = Convert.ToInt32(duration.TotalMilliseconds / 100); // truncates
+
+                for (var i = 0; i < 100; ++i)
+                {
+                    System.Threading.Thread.Sleep(duration_fragments);
+                    freeze_inputs_backgroundWorker.ReportProgress(i);
+                }
             };
             freeze_inputs_backgroundWorker.RunWorkerCompleted += (sender, eventArg) =>
             {
                 ui_dock_password.IsEnabled = true;
+                ui_freeze_inputs_progressBar.Visibility = Visibility.Hidden;
+                ui_remaining_try.Visibility = Visibility.Visible;
                 ui_passwordBox.Focus();
+            };
+            freeze_inputs_backgroundWorker.ProgressChanged += (sender, eventArg) =>
+            {
+                ui_freeze_inputs_progressBar.Value = eventArg.ProgressPercentage;
             };
 
             freeze_inputs_backgroundWorker.RunWorkerAsync();

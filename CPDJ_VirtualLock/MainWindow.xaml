@@ -32,11 +32,21 @@
                        LastChildFill="True">
                 <Label
                     DockPanel.Dock="Right"
+                    Name="ui_remaining_try"
                     Content="{Binding Path=remaining_try}" FontWeight="ExtraBold"
                     FontSize="25" Foreground="DarkRed" Background="Black"
                     BorderThickness="1" BorderBrush="DarkGray"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                     Margin="10,10,10,10"
+                    />
+                <ProgressBar
+                    DockPanel.Dock="Right"
+                    Visibility="Hidden"
+                    Name="ui_freeze_inputs_progressBar"
+                    Foreground="DarkRed" Background="Black"
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
+                    Margin="10,10,10,10"
+                    Width="{Binding Path=ActualWidth, ElementName=ui_remaining_try}"
                     />
                 <PasswordBox
                     DockPanel.Dock="Left"
