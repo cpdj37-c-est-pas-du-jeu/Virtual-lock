@@ -19,19 +19,26 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" >
+            <Grid Grid.Row="0"
+                  Name="ui_timer_grid"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch"
+                  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="6*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <!--Text="{Binding Path=remaining_time, StringFormat={}{0:hh\:mm\:ss}, FallbackValue=00:00:00}"-->
-                <TextBlock
-                    Grid.Row="0"
-                    Name="ui_countdown"
-                    Text="[^.^]"
-                    FontSize="150" Foreground="DarkRed" FontWeight="ExtraBold"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                />
+                <Viewbox Grid.Row="0">
+                    <TextBlock
+                        Name="ui_countdown"
+                        TextWrapping="Wrap"
+                        Text="[^.^]"
+                        Width="{Binding XPath=ActualWidth, ElementName=ui_timer_grid}"
+                        FontSize="{Binding XPath=ActualWidth, ElementName=ui_timer_grid}" Foreground="DarkRed" FontWeight="ExtraBold"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                    />
+                </Viewbox>
                 <ProgressBar
                     Grid.Row="1"
                     Name="ui_remainingTime_progressBar"
@@ -83,13 +90,16 @@
                     Width="{Binding Path=ActualWidth, ElementName=ui_remaining_try}"
                     />
             </Grid>
+            <Viewbox Grid.Row="2" >
             <Button
-                Grid.Row="2" Name="ui_start_button"
+                Name="ui_start_button"
                 Content="Start" FontSize="20"
                 Margin="20,20,20,20"
                 HorizontalAlignment="Center"
                 Click="ui_start_button_clicked"
+                FontFamily="Comic Sans MS, Verdana"
             />
+            </Viewbox>
         </Grid>
         <Grid x:Name="ui_grid_success" Visibility="Collapsed">
             <Grid.Background>

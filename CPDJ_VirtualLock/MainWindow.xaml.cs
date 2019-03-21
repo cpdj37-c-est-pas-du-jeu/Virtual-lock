@@ -30,6 +30,7 @@ namespace CPDJ_VirtualLock
         {
             InitializeComponent();
             DataContext = this;
+            ui_start_button.Focus();
         }
 
         #region Countdown
