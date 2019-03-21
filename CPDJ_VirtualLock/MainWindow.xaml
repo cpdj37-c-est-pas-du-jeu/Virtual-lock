@@ -28,16 +28,22 @@
                     <RowDefinition Height="6*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <!--Text="{Binding Path=remaining_time, StringFormat={}{0:hh\:mm\:ss}, FallbackValue=00:00:00}"-->
+                
                 <Viewbox Grid.Row="0">
                     <TextBlock
                         Name="ui_countdown"
-                        TextWrapping="Wrap"
+                        Margin="1,1,1,1"
+                        TextWrapping="WrapWithOverflow"
+                        FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
+                        FontWeight="ExtraBlack"
                         Text="[^.^]"
-                        Width="{Binding XPath=ActualWidth, ElementName=ui_timer_grid}"
-                        FontSize="{Binding XPath=ActualWidth, ElementName=ui_timer_grid}" Foreground="DarkRed" FontWeight="ExtraBold"
+                        Foreground="DarkRed"
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                     />
+                    <!--FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"-->
+                    <!--FontFamily="pack://application:,,,/ressources/fonts/retro_party.ttf#retro party"-->
+                    <!--FontFamily="pack://application:,,,/ressources/fonts/Kemco Pixel Bold.ttf#Kemco Pixel Bold"-->
+                    <!--FontFamily="pack://application:,,,/ressources/fonts/ka1.ttf#karmatic arcade"-->
                 </Viewbox>
                 <ProgressBar
                     Grid.Row="1"

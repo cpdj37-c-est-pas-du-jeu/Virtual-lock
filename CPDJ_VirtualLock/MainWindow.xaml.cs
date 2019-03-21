@@ -51,7 +51,7 @@ namespace CPDJ_VirtualLock
                 delegate
                 {
                     ui_remainingTime_progressBar.Value = time.TotalSeconds - remaining_time.TotalSeconds;
-                    ui_countdown.Text = remaining_time.ToString("c");
+                    ui_countdown.Text = remaining_time.ToString(@"hh\:mm\:ss"); // "c"
                     if (remaining_time == TimeSpan.Zero)
                     {
                         timer.Stop();
