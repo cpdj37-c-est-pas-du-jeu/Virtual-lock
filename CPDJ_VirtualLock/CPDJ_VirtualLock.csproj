@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="configuration.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -90,18 +91,25 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="ressources\fonts\Hacked CRT.ttf" />
+    <Resource Include="ressources\fonts\karmatic arcade.ttf" />
+    <Resource Include="ressources\fonts\Kemco Pixel Bold.ttf" />
+    <Resource Include="ressources\fonts\retro_party.ttf" />
+    <Resource Include="ressources\fonts\The 2K12.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ressources\images\mosaic69814_960_720.jpg" />
     <Resource Include="ressources\images\pixels_background.jpg" />
     <Resource Include="ressources\images\pixels_background_hd.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ressources\images\busted.png" />
     <Resource Include="ressources\images\top_secret.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ressources\images\pixels_background_hd - darker.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

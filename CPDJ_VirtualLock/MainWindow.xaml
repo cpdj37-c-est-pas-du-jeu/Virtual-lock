@@ -10,9 +10,9 @@
     <Grid>
         <Grid.Background>
             <!--Background="DarkSlateGray"-->
-            <ImageBrush ImageSource="pack://application:,,,/ressources/images/pixels_background_hd.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="pack://application:,,,/ressources/images/pixels_background_hd - darker.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-
+        
         <Grid x:Name="ui_grid_countdown">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
@@ -28,17 +28,16 @@
                     <RowDefinition Height="6*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                
+
                 <Viewbox Grid.Row="0">
                     <TextBlock
                         Name="ui_countdown"
                         Margin="1,1,1,1"
-                        TextWrapping="WrapWithOverflow"
                         FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
-                        FontWeight="ExtraBlack"
                         Text="[^.^]"
                         Foreground="DarkRed"
                         VerticalAlignment="Center" HorizontalAlignment="Center"
+                        FontStretch="Expanded"
                     />
                     <!--FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"-->
                     <!--FontFamily="pack://application:,,,/ressources/fonts/retro_party.ttf#retro party"-->
@@ -53,58 +52,79 @@
                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                     Margin="10,10,10,10"
                 />
-                <!--Width="{Binding Path=ActualWidth, ElementName=ui_countdown}"-->
             </Grid>
             <Grid
                 Name="ui_dock_password"
                 Grid.Row="2"
-                Visibility="Collapsed"
                 >
+                <!--Visibility="Collapsed"-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <PasswordBox
-                    Grid.Column="0"
-                    Name="ui_passwordBox"
-                    Margin="10,10,10,10"
-                    Background="Black" Foreground="DarkGreen"
-                    KeyUp="ui_passwordBox_KeyUp"
-                    FontSize="50" PasswordChar="*"
-                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                    BorderBrush="DarkGreen"
+
+                <Border 
+                        Margin="0,10,10,10"
+                        BorderBrush="DarkGreen" BorderThickness="3" HorizontalAlignment="Stretch">
+                        <!--KeyUp="ui_passwordBox_KeyUp"-->
+                        <TextBox
+                            FontStretch="Normal"
+                            TextWrapping="Wrap"
+                            Name="ui_passwordBox"
+                            VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                            FontWeight="ExtraBold"
+                            FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
+                            Foreground="DarkGreen" Background="Black"/>
+                </Border>
+                <!--MaxLength="8"-->
+                <!--<Border Grid.Column="0"
+                        Name="ui_passwordBox_border">
+                    <PasswordBox
+                        Name="ui_passwordBox"
+                        Background="Black" Foreground="DarkGreen"
+                        KeyUp="ui_passwordBox_KeyUp"
+                        PasswordChar="*"
+                        FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
+                        FontSize="{Binding Path=ActualHeight, ElementName=ui_remaining_try}"
+                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                        VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                        Margin="10,10,10,10"
+                        BorderBrush="DarkGreen" BorderThickness="3"
                     />
-                    <!--MaxLength="8"-->
-                <Label
-                    Grid.Column="1"
-                    Name="ui_remaining_try"
-                    Content="{Binding Path=remaining_try}" FontWeight="ExtraBold"
-                    FontSize="25" Foreground="DarkRed" Background="Black"
-                    BorderThickness="1" BorderBrush="DarkGray"
-                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                    Margin="10,10,10,10"
-                    />
+                </Border>-->
+                <Border Grid.Column="1"
+                        Margin="0,10,10,10"
+                        BorderBrush="DarkGreen" BorderThickness="3">
+                    <Viewbox Stretch="Fill">
+                        <Label
+                            Name="ui_remaining_try"
+                            Content="{Binding Path=remaining_try}" FontWeight="ExtraBold"
+                            FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
+                            Foreground="DarkGreen" Background="Black"/>
+                    </Viewbox>
+                </Border>
                 <ProgressBar
                     Grid.Column="1"
                     DockPanel.Dock="Right"
-                    Visibility="Hidden"
+                    Visibility="Collapsed"
                     Name="ui_freeze_inputs_progressBar"
-                    Foreground="DarkRed" Background="Black"
+                    Foreground="DarkGreen" Background="Black"
+                    BorderBrush="DarkGreen" BorderThickness="3"
                     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
-                    Margin="10,10,10,10"
-                    Width="{Binding Path=ActualWidth, ElementName=ui_remaining_try}"
-                    />
+                    Margin="0,10,10,10"
+                />
             </Grid>
             <Viewbox Grid.Row="2" >
-            <Button
-                Name="ui_start_button"
-                Content="Start" FontSize="20"
-                Margin="20,20,20,20"
-                HorizontalAlignment="Center"
-                Click="ui_start_button_clicked"
-                FontFamily="Comic Sans MS, Verdana"
-            />
+                <Button
+                    Name="ui_start_button"
+                    Content="Start"
+                    FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
+                    FontWeight="ExtraBlack"
+                    Margin="5,5,5,5"
+                    Background="Black" Foreground="DarkGreen"
+                    BorderBrush="DarkGreen" BorderThickness="2"
+                    Click="ui_start_button_clicked"
+                />
             </Viewbox>
         </Grid>
         <Grid x:Name="ui_grid_success" Visibility="Collapsed">
