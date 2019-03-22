@@ -202,6 +202,12 @@ namespace CPDJ_VirtualLock
                 OnPlayerInput(value);
             }
         }
+
+        private void Ui_passwordField_SizeChanged(object sender, SizeChangedEventArgs e)
+        {   // quickfix : shameful trick ... (ViewBox sucks for input fields)
+            var input_field = sender as Control;
+            input_field.FontSize = input_field.ActualHeight / 2;
+        }
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

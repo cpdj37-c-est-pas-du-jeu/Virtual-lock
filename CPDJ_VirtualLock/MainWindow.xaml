@@ -67,11 +67,12 @@
                     Name="ui_password_field"
                     KeyUp="ui_passwordField_KeyUp"
                     Margin="10,10,10,10"
-                    FontStretch="Normal" TextWrapping="Wrap"
+                    FontStretch="UltraExpanded" TextWrapping="Wrap"
                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                     FontWeight="ExtraBold" FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
                     Foreground="DarkGreen" Background="Black"
                     BorderBrush="DarkGreen" BorderThickness="3"
+                    SizeChanged="Ui_passwordField_SizeChanged"
                     />
 
                 <!--MaxLength="8"-->
@@ -88,6 +89,7 @@
                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                         Margin="10,10,10,10"
                         BorderBrush="DarkGreen" BorderThickness="3"
+                        SizeChanged="Ui_passwordField_SizeChanged"
                     />
                 </Border>-->
                 <Border Grid.Column="1"
@@ -98,7 +100,8 @@
                             Name="ui_remaining_try"
                             Content="{Binding Path=remaining_try}" FontWeight="ExtraBold"
                             FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
-                            Foreground="DarkGreen" Background="Black"/>
+                            Foreground="DarkGreen" Background="Black"
+                            />
                     </Viewbox>
                 </Border>
                 <ProgressBar
