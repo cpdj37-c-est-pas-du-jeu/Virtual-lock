@@ -123,7 +123,7 @@ namespace CPDJ_VirtualLock
                 ui_dock_password.IsEnabled = true;
                 ui_freeze_inputs_progressBar.Visibility = Visibility.Hidden;
                 ui_remaining_try.Visibility = Visibility.Visible;
-                ui_passwordBox.Focus();
+                ui_password_field.Focus();
             };
             freeze_inputs_backgroundWorker.ProgressChanged += (sender, eventArg) =>
             {
@@ -158,11 +158,37 @@ namespace CPDJ_VirtualLock
 
             start_button.Visibility = Visibility.Hidden;
             ui_dock_password.Visibility = Visibility.Visible;
-            ui_passwordBox.Focus();
+            ui_password_field.Focus();
 
             StartTimer(TimeSpan.FromSeconds(10));
         }
-        private void ui_passwordBox_KeyUp(object sender, KeyEventArgs e)
+        #region player input validation
+        private void ui_passwordField_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sender is TextBox)
+                ui_passwordField_TextBox_KeyUp(sender, e);
+            else if (sender is PasswordBox)
+                ui_passwordField_PasswordBox_KeyUp(sender, e);
+            else
+                throw new InvalidOperationException("ui_passwordField_KeyUp : unhandled sender type");
+        }
+        // if field is a Textbox
+        private void ui_passwordField_TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            var password_box = sender as TextBox;
+
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                e.Handled = true;
+                String value = password_box.Text;
+                if (value.Length == 0)
+                    return;
+                password_box.Clear();
+                OnPlayerInput(value);
+            }
+        }
+        // if field is a PasswordBox
+        private void ui_passwordField_PasswordBox_KeyUp(object sender, KeyEventArgs e)
         {
             var password_box = sender as PasswordBox;
 
@@ -170,10 +196,13 @@ namespace CPDJ_VirtualLock
             {
                 e.Handled = true;
                 String value = password_box.Password;
+                if (value.Length == 0)
+                    return;
                 password_box.Clear();
                 OnPlayerInput(value);
             }
         }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
