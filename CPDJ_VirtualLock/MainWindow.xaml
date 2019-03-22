@@ -56,8 +56,8 @@
             <Grid
                 Name="ui_dock_password"
                 Grid.Row="1"
+                Visibility="Collapsed"
                 >
-                <!--Visibility="Collapsed"-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="1*"/>
