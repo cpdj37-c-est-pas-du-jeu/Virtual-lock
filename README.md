@@ -1,4 +1,6 @@
-# Virtual-lock
+![CPDJ Virtual lock logo](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/blob/master/CPDJ_VirtualLock/ressources/images/logo/Virtual_lock_logo_128_x_128.png)
+
+# C'est (pas) du jeu : Virtual-lock
 > Serrure numerique avec compte a rebour
 
 Elements :
