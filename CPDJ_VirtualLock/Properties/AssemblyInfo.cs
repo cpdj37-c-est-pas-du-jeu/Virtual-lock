@@ -7,13 +7,13 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CPDJ_VirtualLock")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CPDJ Virtual Lock")]
+[assembly: AssemblyDescription(@"C'est (pas) du jeu : Virtual lock")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CPDJ_VirtualLock")]
+[assembly: AssemblyCompany(@"C'est (pas) du jeu")]
+[assembly: AssemblyProduct("CPDJ Virtual Lock")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark(@"C'est (pas) du jeu")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

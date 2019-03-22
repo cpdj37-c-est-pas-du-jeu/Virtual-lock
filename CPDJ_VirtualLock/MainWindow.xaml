@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPDJ_VirtualLock"
         mc:Ignorable="d"
-        Title="CPDJ : Virtual lock"
+        Title="C'est (pas) du jeu : Virtual lock"
         Height="450" Width="800">
     <Grid>
         <Grid.Background>
