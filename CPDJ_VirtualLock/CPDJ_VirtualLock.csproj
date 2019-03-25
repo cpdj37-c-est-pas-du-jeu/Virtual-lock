@@ -80,7 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="configuration_form.xaml">
+    <Page Include="ConfigurationForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -93,8 +93,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="configuration.cs" />
-    <Compile Include="configuration_form.xaml.cs">
-      <DependentUpon>configuration_form.xaml</DependentUpon>
+    <Compile Include="ConfigurationForm.xaml.cs">
+      <DependentUpon>ConfigurationForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

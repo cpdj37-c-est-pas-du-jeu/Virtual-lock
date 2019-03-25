@@ -26,7 +26,7 @@ namespace CPDJ_VirtualLock
                     }
                     catch (Exception) { }
 
-                    var config_form = new configuration_form(ref configuration);
+                    var config_form = new ConfigurationForm(ref configuration);
                     config_form.ShowDialog();
 
                     try

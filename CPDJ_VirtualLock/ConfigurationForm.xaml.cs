@@ -17,15 +17,15 @@ namespace CPDJ_VirtualLock
     /// <summary>
     /// Interaction logic for configuration_form.xaml
     /// </summary>
-    public partial class configuration_form : Window
+    public partial class ConfigurationForm : Window
     {
         private Configuration _configuration = null;
 
-        public configuration_form()
+        public ConfigurationForm()
         {
             throw new NotImplementedException();
         }
-        public configuration_form(ref Configuration config_arg)
+        public ConfigurationForm(ref Configuration config_arg)
         {
             _configuration = config_arg;
             this.DataContext = _configuration;
