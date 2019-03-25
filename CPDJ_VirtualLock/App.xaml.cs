@@ -41,6 +41,7 @@ namespace CPDJ_VirtualLock
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "CPDJ Virtual-lock : Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Debug.WriteLine(ex.Message);
             }
 
