@@ -1,0 +1,115 @@
+﻿<Window x:Class="CPDJ_VirtualLock.configuration_form"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CPDJ_VirtualLock"
+        mc:Ignorable="d"
+        Title="configuration_form" Height="450" Width="400"
+        SizeToContent="WidthAndHeight">
+    <StackPanel Background="DarkSlateGray">
+        <Grid Background="Transparent" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Totale duration-->
+        <Label Grid.Row="0" Grid.Column="0"
+               Content="Duree totale"/>
+        <Grid Grid.Row="0"
+              Grid.Column="1" ShowGridLines="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Heure(s)"/>
+                <Label Grid.Row="0" Grid.Column="1" Content="Minutes(s)"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="Secondes(s)"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Name="ui_totale_duration_hours"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="ui_totale_duration_minutes"/>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="ui_totale_duration_seconds"/>
+            </Grid>
+        </Grid>
+
+        <!--password-->
+        <Label Grid.Row="1" Grid.Column="0"
+               Content="Mot de passe"/>
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Name="ui_password"/>
+
+        <!--try_before_lock-->
+        <Label Grid.Row="2" Grid.Column="0"
+               Content="Essais avant blocage"/>
+        <TextBox Grid.Row="2" Grid.Column="1"
+                 Name="ui_try_before_lock"/>
+
+        <!--lock_duration-->
+        <Label Grid.Row="3" Grid.Column="0"
+               Content="Duree des blocages"/>
+        <Grid Grid.Row="3"
+              Grid.Column="1" ShowGridLines="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Heure(s)"/>
+                <Label Grid.Row="0" Grid.Column="1" Content="Minutes(s)"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="Secondes(s)"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Name="ui_lock_duration_hours"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="ui_lock_duration_minutes"/>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="ui_lock_duration_seconds"/>
+            </Grid>
+        </Grid>
+
+        <!--lock_is_final-->
+        <Label Grid.Row="4" Grid.Column="0"
+               Content="Blocage definitif ?"/>
+        <CheckBox Grid.Row="4" Grid.Column="1"
+                  Name="ui_is_lock_is_final"/>
+
+        <!--player_success_image_path-->
+        <Label Grid.Row="5" Grid.Column="0"
+               Content="Victoire : Image"/>
+        <DockPanel Grid.Row="5" Grid.Column="1" LastChildFill="True">
+            <Button Content="selection fichier" Click="button_PickImageFile" Tag="{Binding ui_player_success_image_path}"/>
+            <TextBox Name="ui_player_success_image_path" MouseDoubleClick="textBox_PickImageFile"
+                     ToolTip="Double click to open a file-picker"/>
+        </DockPanel>
+        <!--todo : show image ?-->
+
+        <!--player_defeat_image_path-->
+        <Label Grid.Row="6" Grid.Column="0"
+               Content="Defaite : Image"/>
+        <DockPanel Grid.Row="6" Grid.Column="1" LastChildFill="True">
+            <Button Content="selection fichier" Click="button_PickImageFile" Tag="{Binding ui_player_defeat_image_path}"/>
+            <TextBox Name="ui_player_defeat_image_path" MouseDoubleClick="textBox_PickImageFile"
+                     ToolTip="Double click to open a file-picker"/>
+        </DockPanel>
+        <!--todo : show image ?-->
+        
+    </Grid>
+        <Button Content="Valider" Click="validate"/>
+    </StackPanel>
+</Window>

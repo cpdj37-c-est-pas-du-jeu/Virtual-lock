@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+
 namespace CPDJ_VirtualLock
 {
     /// <summary>
@@ -25,6 +26,8 @@ namespace CPDJ_VirtualLock
     {
         // todo : state machine :
         // ready -> running -> [input_enabled || input_frozen] -> stopped : [success || defeat]
+
+        private Configuration configuration = new Configuration();
 
         public MainWindow()
         {
