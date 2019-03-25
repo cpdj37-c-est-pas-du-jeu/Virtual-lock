@@ -18,8 +18,8 @@ namespace CPDJ_VirtualLock
         {
             try
             {
+                var configuration = new Configuration();
                 {
-                    var configuration = new Configuration();
                     try
                     {
                         Serializer.DeSerialize(Configuration.file_path, out configuration);
@@ -36,12 +36,15 @@ namespace CPDJ_VirtualLock
                     catch (Exception) { }
                 }
 
-                var main_window = new MainWindow();
+                var main_window = new MainWindow(configuration);
                 main_window.ShowDialog();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "CPDJ Virtual-lock : Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Please report this issue at :\r\n"
+                    + "https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/issues" + "\r\n\r\n" + ex.Message,
+                    "CPDJ Virtual-lock : Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Debug.WriteLine(ex.Message);
             }
 
