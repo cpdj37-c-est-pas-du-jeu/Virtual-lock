@@ -12,7 +12,7 @@
             <!--Background="DarkSlateGray"-->
             <ImageBrush ImageSource="pack://application:,,,/ressources/images/pixels_background_hd - darker.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        
+
         <Grid x:Name="ui_grid_countdown">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
@@ -32,13 +32,14 @@
                 <Viewbox Grid.Row="0">
                     <TextBlock
                         Name="ui_countdown"
+                        Text="{Binding RemainingTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}}"
                         Margin="1,1,1,1"
                         FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
-                        Text="[^.^]"
                         Foreground="DarkRed"
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                         FontStretch="Expanded"
                     />
+                    <!--Text="[^.^]"-->
                     <!--FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"-->
                     <!--FontFamily="pack://application:,,,/ressources/fonts/retro_party.ttf#retro party"-->
                     <!--FontFamily="pack://application:,,,/ressources/fonts/Kemco Pixel Bold.ttf#Kemco Pixel Bold"-->
@@ -56,8 +57,7 @@
             <Grid
                 Name="ui_dock_password"
                 Grid.Row="1"
-                Visibility="Collapsed"
-                >
+                Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="1*"/>
@@ -74,7 +74,6 @@
                     BorderBrush="DarkGreen" BorderThickness="3"
                     SizeChanged="Ui_passwordField_SizeChanged"
                     />
-
                 <!--MaxLength="8"-->
                 <!--<Border Grid.Column="0"
                         Name="ui_passwordBox_border">
@@ -98,7 +97,7 @@
                     <Viewbox Stretch="Fill">
                         <Label
                             Name="ui_remaining_try"
-                            Content="{Binding Path=remaining_try}" FontWeight="ExtraBold"
+                            Content="{Binding Path=RemainingTry, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="ExtraBold"
                             FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
                             Foreground="DarkGreen" Background="Black"
                             />
@@ -130,12 +129,15 @@
         </Grid>
         <Grid x:Name="ui_grid_success" Visibility="Collapsed">
             <Grid.Background>
-                <ImageBrush ImageSource="pack://application:,,,/ressources/images/Top_secret.png" Stretch="UniformToFill"/>
+                <ImageBrush Stretch="UniformToFill"
+                            ImageSource="{Binding Path=PlayerSuccessImagePath}"
+                            />
             </Grid.Background>
         </Grid>
         <Grid x:Name="ui_grid_failure" Visibility="Collapsed">
             <Grid.Background>
-                <ImageBrush ImageSource="pack://application:,,,/ressources/images/busted.png" Stretch="UniformToFill"/>
+                <ImageBrush Stretch="UniformToFill"
+                            ImageSource="{Binding Path=PlayerDefeatImagePath}"/>
             </Grid.Background>
         </Grid>
     </Grid>

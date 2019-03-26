@@ -27,43 +27,59 @@ namespace CPDJ_VirtualLock
         // todo : state machine :
         // ready -> running -> [input_enabled || input_frozen] -> stopped : [success || defeat]
 
-        private Configuration configuration;
+        public Configuration _configuration { get; set; }
 
         public MainWindow(Configuration configuration_arg)
         {
-            configuration = configuration_arg;
+            _configuration = configuration_arg;
 
             InitializeComponent();
             DataContext = this;
+
+            ui_grid_success.DataContext = _configuration;
+            ui_grid_failure.DataContext = _configuration;
+
+            RemainingTry = _configuration.TryBeforeLock;
+            RemainingTime = _configuration.TotalDuration;
+
             ui_start_button.Focus();
         }
 
         #region Countdown
         private DispatcherTimer timer;
-        private TimeSpan remaining_time = TimeSpan.Zero;
+        private TimeSpan _remainingTime = TimeSpan.Zero;
+        public TimeSpan RemainingTime
+        {
+            get { return _remainingTime; }
+            set
+            {
+                _remainingTime = value;
+                OnPropertyChanged();
+            }
+        }
 
         private void StartTimer(TimeSpan time)
         {
             ui_remainingTime_progressBar.Visibility = Visibility.Visible;
             ui_remainingTime_progressBar.Minimum = 0;
-            ui_remainingTime_progressBar.Maximum = Convert.ToInt32(time.TotalSeconds); // // can throw overflow exception
+            ui_remainingTime_progressBar.Maximum = Convert.ToInt32(time.TotalSeconds); // can throw overflow exception
 
-            remaining_time = time;
+            _remainingTry = _configuration.TryBeforeLock;
+            RemainingTime = time;
             timer = new DispatcherTimer
             (
                 TimeSpan.FromSeconds(1),
                 DispatcherPriority.Normal,
                 delegate
                 {
-                    ui_remainingTime_progressBar.Value = time.TotalSeconds - remaining_time.TotalSeconds;
-                    ui_countdown.Text = remaining_time.ToString(@"hh\:mm\:ss"); // "c"
-                    if (remaining_time == TimeSpan.Zero)
+                    ui_remainingTime_progressBar.Value = time.TotalSeconds - RemainingTime.TotalSeconds;
+                    //ui_countdown.Text = RemainingTime.ToString(@"hh\:mm\:ss"); // "c"
+                    if (RemainingTime == TimeSpan.Zero)
                     {
                         timer.Stop();
                         OnPlayerDefeat();
                     }
-                    remaining_time = remaining_time.Subtract(TimeSpan.FromSeconds(1));
-                    OnPropertyChanged("remaining_time");
+                    RemainingTime = RemainingTime.Subtract(TimeSpan.FromSeconds(1));
                 }, Application.Current.Dispatcher
             );
         }
@@ -72,29 +88,43 @@ namespace CPDJ_VirtualLock
         #region GamePlay
         private void OnPlayerInput(String input_value)
         {
-            if (input_value == "toto") // todo : as configuration
+            if (input_value == _configuration.Password)
                 OnPlayerSuccess();
             else
                 OnPlayerBadInput();
         }
 
-        public String remaining_try
+        public String RemainingTryAsString
         {
-            get { return _remaining_try.ToString(); }
+            get { return _remainingTry.ToString(); }
         }
-        private int _remaining_try = 3;
+        private uint _remainingTry = 1; // set in StartTimer
+        public uint RemainingTry
+        {
+            get { return _remainingTry; }
+            set
+            {
+                _remainingTry = value;
+                OnPropertyChanged();
+            }
+        }
 
         private void OnPlayerBadInput()
         {
-            // add to try list
+            // add to try list [?] + _configuration.IsTryListVisible
 
-            _remaining_try -= 1;
-            OnPropertyChanged("remaining_try");
-            if (_remaining_try == 0)
+            _remainingTry -= 1;
+            OnPropertyChanged("RemainingTryAsString");
+            if (_remainingTry == 0)
             {
-                FreezeInputs(TimeSpan.FromSeconds(3)); // todo : as configuration
-                _remaining_try = 3;
-                OnPropertyChanged("remaining_try");
+                if (_configuration.IsLockFinal)
+                {   // defeat
+                    OnPlayerDefeat();
+                    return;
+                }
+                FreezeInputs(_configuration.LockDuration);
+                _remainingTry = _configuration.TryBeforeLock;
+                OnPropertyChanged("RemainingTryAsString");
             }
         }
         private BackgroundWorker freeze_inputs_backgroundWorker;
@@ -165,7 +195,7 @@ namespace CPDJ_VirtualLock
             ui_dock_password.Visibility = Visibility.Visible;
             ui_password_field.Focus();
 
-            StartTimer(TimeSpan.FromSeconds(10));
+            StartTimer(_configuration.TotalDuration);
         }
         #region player input validation
         private void ui_passwordField_KeyUp(object sender, KeyEventArgs e)
@@ -207,7 +237,6 @@ namespace CPDJ_VirtualLock
                 OnPlayerInput(value);
             }
         }
-
         private void Ui_passwordField_SizeChanged(object sender, SizeChangedEventArgs e)
         {   // quickfix : shameful trick ... (ViewBox sucks for input fields)
             var input_field = sender as Control;
