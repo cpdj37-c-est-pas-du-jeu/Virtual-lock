@@ -4,16 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPDJ_VirtualLock"
-        xmlns:c="clr-namespace:CPDJ_VirtualLock.ValidationCriteria"
         mc:Ignorable="d"
-        Title="Formulaire de configuration" Height="Auto" Width="Auto"
-        ResizeMode="CanResizeWithGrip"
+        Title="CPDJ : Virtual-lock : Formulaire de configuration" Height="Auto" Width="Auto"
+        ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         >
-    <!--SizeToContent="WidthAndHeight"-->
-    <StackPanel Background="DarkSlateGray">
+    <StackPanel>
         <!--<Viewbox>-->
-        <Grid Background="Transparent" ShowGridLines="True">
+        <Grid ShowGridLines="True">
+            <Grid.Background>
+                <!--Background="DarkSlateGray"-->
+                <ImageBrush ImageSource="pack://application:,,,/ressources/images/pixels_background_hd - darker.jpg" Stretch="UniformToFill"/>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="500"/>
@@ -30,7 +32,8 @@
 
             <!--Totale duration-->
             <Label Grid.Row="0" Grid.Column="0"
-               Content="Duree totale"/>
+               Content="Duree totale"
+                   Foreground="Gray" FontWeight="Bold"/>
             <TextBox Grid.Row="0" Grid.Column="1" Name="ui_totale_duration_hours"
                      HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                      Text="{Binding TotalDuration, StringFormat={}{0:hh':'mm':'ss}}"
@@ -39,33 +42,40 @@
 
             <!--password-->
             <Label Grid.Row="1" Grid.Column="0"
-               Content="Mot de passe"/>
+               Content="Mot de passe"
+                   Foreground="Gray" FontWeight="Bold"/>
             <TextBox Grid.Row="1" Grid.Column="1"
                  Name="ui_password" Text="{Binding Password}"/>
 
             <!--try_before_lock-->
             <Label Grid.Row="2" Grid.Column="0"
-               Content="Essais avant blocage"/>
+               Content="Essais avant blocage"
+                   Foreground="Gray" FontWeight="Bold"/>
             <TextBox Grid.Row="2" Grid.Column="1"
                      Name="ui_try_before_lock" Text="{Binding TryBeforeLock}"
                      TextChanged="TextBox_NumericalValue_TextChanged"/>
 
             <!--lock_duration-->
             <Label Grid.Row="3" Grid.Column="0"
-               Content="Duree des blocages"/>
+               Content="Duree des blocages"
+                   Foreground="Gray" FontWeight="Bold"/>
             <TextBox Grid.Row="3" Grid.Column="1"
                      Text="{Binding LockDuration, StringFormat={}{0:hh':'mm':'ss}, UpdateSourceTrigger=PropertyChanged}"
                      TextChanged="TextBox_TimeValue_TextChanged"/>
 
-        <!--lock_is_final-->
-            <Label Grid.Row="4" Grid.Column="0"
-               Content="Blocage definitif ?"/>
+            <!--lock_is_final-->
+            <Label Grid.Row="4" Grid.Column="0" Name="label_IsLockFinal"
+               Content="Blocage definitif ?"
+                   Foreground="Gray" FontWeight="Bold"/>
             <CheckBox Grid.Row="4" Grid.Column="1"
-                  Name="ui_is_lock_is_final" IsChecked="{Binding is_lock_final}"/>
+                      Name="ui_is_lock_is_final" IsChecked="{Binding is_lock_final}"
+                      VerticalAlignment="Center"
+                      />
 
             <!--player_success_image_path-->
             <Label Grid.Row="5" Grid.Column="0"
-               Content="Victoire : Image"/>
+               Content="Victoire : Image"
+                   Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="5" Grid.Column="1" >
                 <DockPanel LastChildFill="True">
                     <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerSuccessImagePath"/>
@@ -74,14 +84,15 @@
                          TextChanged="TextBox_PathValue_TextChanged"
                          ToolTip="Double click to open a file-picker"/>
                 </DockPanel>
-                    <Image Height="100"
+                <Image Height="100"
                            Source="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                            MouseDown="image_MouseDown_selectSourceFile"/>
             </StackPanel>
 
             <!--player_defeat_image_path-->
             <Label Grid.Row="6" Grid.Column="0"
-               Content="Defaite : Image"/>
+               Content="Defaite : Image"
+                   Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="6" Grid.Column="1" >
                 <DockPanel LastChildFill="True">
                     <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerDefeatImagePath"/>

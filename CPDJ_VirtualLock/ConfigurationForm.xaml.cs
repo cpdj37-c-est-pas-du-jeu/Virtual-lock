@@ -19,59 +19,6 @@ using System.Windows.Shapes;
 
 namespace CPDJ_VirtualLock
 {
-    namespace ValidationCriteria
-    {
-        public class NumericalRangeRule : ValidationRule
-        {
-            private int _min;
-            private int _max;
-
-            public NumericalRangeRule()
-            {
-            }
-
-            public int Min
-            {
-                get { return _min; }
-                set { _min = value; }
-            }
-
-            public int Max
-            {
-                get { return _max; }
-                set { _max = value; }
-            }
-
-            public override ValidationResult Validate(object obj_value, CultureInfo cultureInfo)
-            {
-                int value = 0;
-
-                try
-                {
-                    if (((string)obj_value).Length > 0)
-                        value = Int32.Parse((String)obj_value);
-                }
-                catch (Exception e)
-                {
-                    return new ValidationResult(false, "Illegal characters or " + e.Message);
-                }
-                
-                if (value < Min || value > Max)
-                {
-                    return new ValidationResult(false,
-                      "range: " + Min + " - " + Max + ".");
-                }
-                else
-                {
-                    return ValidationResult.ValidResult;
-                }
-            }
-        }
-        public class TimeFragmentRule : NumericalRangeRule
-        { }
-
-    }
-
     /// <summary>
     /// Interaction logic for configuration_form.xaml
     /// </summary>
@@ -105,6 +52,7 @@ namespace CPDJ_VirtualLock
             }
         }
 
+        #region select image
         private void textBox_PickImageFile(object sender, RoutedEventArgs e)
         {
             (sender as TextBox).Text = GetFilePath();
@@ -127,11 +75,10 @@ namespace CPDJ_VirtualLock
 
             (sender as Image).Source = image_source;
         }
-
+        #endregion
 
         private void validate(object sender, RoutedEventArgs e)
         {
-            // if not valide, warning then cancel
             if (!_configuration.IsValid)
             {
                 MessageBox.Show("Certaines valeurs sont invalides", "CPDJ : Virtual-lock : Attention", MessageBoxButton.OK, MessageBoxImage.Warning);

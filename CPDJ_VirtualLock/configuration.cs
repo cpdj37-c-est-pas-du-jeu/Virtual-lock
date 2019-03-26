@@ -37,10 +37,7 @@ namespace CPDJ_VirtualLock
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChange([CallerMemberName] string propertyname = null)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
 
         public static readonly string file_path = "./configuration.xml";
@@ -50,6 +47,7 @@ namespace CPDJ_VirtualLock
             // base.Load();
         }
 
+        #region total duration
         [XmlIgnore]
         private TimeSpan _totalDuration = TimeSpan.FromMinutes(1);
         [XmlIgnore]
@@ -68,7 +66,9 @@ namespace CPDJ_VirtualLock
             get { return TotalDuration.Ticks; }
             set { TotalDuration = new TimeSpan(value); }
         }
+        #endregion
 
+        #region password
         [XmlIgnore]
         private String _password = "toto";
         public String Password
@@ -80,6 +80,7 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        #endregion
 
         #region player attempts
         [XmlIgnore]
