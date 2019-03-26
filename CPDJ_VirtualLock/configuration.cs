@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -28,8 +30,19 @@ namespace CPDJ_VirtualLock
         }
     }
 
-    public class Configuration// : GCL.MetaConfiguration
+    [Serializable]
+    public class Configuration : INotifyPropertyChanged
+        // : GCL.MetaConfiguration
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void RaisePropertyChange([CallerMemberName] string propertyname = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+            }
+        }
+
         public static readonly string file_path = "./configuration.xml";
 
         public Configuration()
@@ -37,21 +50,112 @@ namespace CPDJ_VirtualLock
             // base.Load();
         }
 
-        public TimeSpan total_duration = TimeSpan.FromMinutes(1);
+        [XmlIgnore]
+        private TimeSpan _totalDuration = TimeSpan.FromMinutes(1);
+        [XmlIgnore]
+        public TimeSpan TotalDuration
+        {
+            get { return _totalDuration; }
+            set
+            {
+                _totalDuration = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlElement("TotalDuration")]
+        private long TotalDurationTicks
+        {
+            get { return TotalDuration.Ticks; }
+            set { TotalDuration = new TimeSpan(value); }
+        }
 
-        public String password = "toto";
+        [XmlIgnore]
+        private String _password = "toto";
+        public String Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+                RaisePropertyChange();
+            }
+        }
 
         #region player attempts
-        public uint try_before_lock = 0;
-        public TimeSpan lock_duration = TimeSpan.FromSeconds(10);
-        public bool lock_is_final = false;
-        #endregion
+        [XmlIgnore]
+        private uint _tryBeforeLock = 0;
+        public uint TryBeforeLock
+        {
+            get { return _tryBeforeLock; }
+            set
+            {
+                _tryBeforeLock = value;
+                RaisePropertyChange();
+            }
+        }
 
-        #region audio
+        [XmlIgnore]
+        private TimeSpan _lockDuration = TimeSpan.FromSeconds(10);
+        [XmlIgnore]
+        public TimeSpan LockDuration
+        {
+            get { return _lockDuration; }
+            set
+            {
+                _lockDuration = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlElement("lock_duration")]
+        private long LockDurationTicks
+        {
+            get { return LockDuration.Ticks; }
+            set { LockDuration = new TimeSpan(value); }
+        }
+        [XmlIgnore]
+        private bool _is_lock_final = false;
+        public bool IsLockFinal
+        {
+            get
+            {
+                return _is_lock_final;
+            }
+            set
+            {
+                if (value == true)
+                    LockDuration = TimeSpan.MaxValue;
+                _is_lock_final = value;
+                RaisePropertyChange();
+            }
+        }
         #endregion
 
         #region game_over
-  
+        [XmlIgnore]
+        private String _playerDefeatImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+        public String PlayerDefeatImagePath
+        {
+            get { return _playerDefeatImagePath; }
+            set
+            {
+                _playerDefeatImagePath = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlIgnore]
+        private String _playerSuccessImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+        public String PlayerSuccessImagePath
+        {
+            get { return _playerSuccessImagePath; }
+            set
+            {
+                _playerSuccessImagePath = value;
+                RaisePropertyChange();
+            }
+        }
+        #endregion
+
+        #region audio
         #endregion
     }
 }
