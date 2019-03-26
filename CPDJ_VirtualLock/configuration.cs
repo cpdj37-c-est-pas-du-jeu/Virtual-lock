@@ -157,5 +157,22 @@ namespace CPDJ_VirtualLock
 
         #region audio
         #endregion
+
+        #region validation
+        [XmlIgnore]
+        public bool IsValid
+        {
+            get { return is_valid(); }
+        }
+        private bool is_valid()
+        {
+            return
+                File.Exists(_playerDefeatImagePath) &&
+                File.Exists(_playerSuccessImagePath) &&
+                (TotalDuration > TimeSpan.Zero) &&
+                ((TotalDuration > LockDuration) || IsLockFinal)
+                ;
+        }
+        #endregion
     }
 }

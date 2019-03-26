@@ -132,6 +132,11 @@ namespace CPDJ_VirtualLock
         private void validate(object sender, RoutedEventArgs e)
         {
             // if not valide, warning then cancel
+            if (!_configuration.IsValid)
+            {
+                MessageBox.Show("Certaines valeurs sont invalides", "CPDJ : Virtual-lock : Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             this.Close();
         }

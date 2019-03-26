@@ -36,6 +36,9 @@ namespace CPDJ_VirtualLock
                     catch (Exception) { }
                 }
 
+                if (!configuration.IsValid)
+                    return;
+
                 var main_window = new MainWindow(configuration);
                 main_window.ShowDialog();
             }
