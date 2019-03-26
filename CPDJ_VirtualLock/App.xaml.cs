@@ -37,7 +37,7 @@ namespace CPDJ_VirtualLock
                 }
 
                 if (!configuration.IsValid)
-                    return;
+                    throw new Exception("CPDJ_VirtualLock.VL_App_Startup : Invalid configuration");
 
                 var main_window = new MainWindow(configuration);
                 main_window.ShowDialog();
