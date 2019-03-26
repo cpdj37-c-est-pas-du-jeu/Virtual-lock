@@ -4,112 +4,99 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPDJ_VirtualLock"
+        xmlns:c="clr-namespace:CPDJ_VirtualLock.ValidationCriteria"
         mc:Ignorable="d"
-        Title="Formulaire de configuration" Height="450" Width="400"
-        SizeToContent="WidthAndHeight">
+        Title="Formulaire de configuration" Height="Auto" Width="Auto"
+        ResizeMode="CanResizeWithGrip"
+        SizeToContent="WidthAndHeight"
+        >
+    <!--SizeToContent="WidthAndHeight"-->
     <StackPanel Background="DarkSlateGray">
+        <!--<Viewbox>-->
         <Grid Background="Transparent" ShowGridLines="True">
             <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="500"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <!--Totale duration-->
-        <Label Grid.Row="0" Grid.Column="0"
+            <!--Totale duration-->
+            <Label Grid.Row="0" Grid.Column="0"
                Content="Duree totale"/>
-        <Grid Grid.Row="0"
-              Grid.Column="1" ShowGridLines="True">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Heure(s)"/>
-                <Label Grid.Row="0" Grid.Column="1" Content="Minutes(s)"/>
-                <Label Grid.Row="0" Grid.Column="2" Content="Secondes(s)"/>
-                <TextBox Grid.Row="1" Grid.Column="0" Name="ui_totale_duration_hours"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Name="ui_totale_duration_minutes"/>
-                <TextBox Grid.Row="1" Grid.Column="2" Name="ui_totale_duration_seconds"/>
-            </Grid>
-        </Grid>
+            <TextBox Grid.Row="0" Grid.Column="1" Name="ui_totale_duration_hours"
+                     HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                     Text="{Binding TotalDuration, StringFormat={}{0:hh':'mm':'ss}}"
+                     TextChanged="TextBox_TimeValue_TextChanged"
+                     />
 
-        <!--password-->
-        <Label Grid.Row="1" Grid.Column="0"
+            <!--password-->
+            <Label Grid.Row="1" Grid.Column="0"
                Content="Mot de passe"/>
-        <TextBox Grid.Row="1" Grid.Column="1"
-                 Name="ui_password"/>
+            <TextBox Grid.Row="1" Grid.Column="1"
+                 Name="ui_password" Text="{Binding Password}"/>
 
-        <!--try_before_lock-->
-        <Label Grid.Row="2" Grid.Column="0"
+            <!--try_before_lock-->
+            <Label Grid.Row="2" Grid.Column="0"
                Content="Essais avant blocage"/>
-        <TextBox Grid.Row="2" Grid.Column="1"
-                 Name="ui_try_before_lock"/>
+            <TextBox Grid.Row="2" Grid.Column="1"
+                     Name="ui_try_before_lock" Text="{Binding TryBeforeLock}"
+                     TextChanged="TextBox_NumericalValue_TextChanged"/>
 
-        <!--lock_duration-->
-        <Label Grid.Row="3" Grid.Column="0"
+            <!--lock_duration-->
+            <Label Grid.Row="3" Grid.Column="0"
                Content="Duree des blocages"/>
-        <Grid Grid.Row="3"
-              Grid.Column="1" ShowGridLines="True">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Heure(s)"/>
-                <Label Grid.Row="0" Grid.Column="1" Content="Minutes(s)"/>
-                <Label Grid.Row="0" Grid.Column="2" Content="Secondes(s)"/>
-                <TextBox Grid.Row="1" Grid.Column="0" Name="ui_lock_duration_hours"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Name="ui_lock_duration_minutes"/>
-                <TextBox Grid.Row="1" Grid.Column="2" Name="ui_lock_duration_seconds"/>
-            </Grid>
-        </Grid>
+            <TextBox Grid.Row="3" Grid.Column="1"
+                     Text="{Binding LockDuration, StringFormat={}{0:hh':'mm':'ss}, UpdateSourceTrigger=PropertyChanged}"
+                     TextChanged="TextBox_TimeValue_TextChanged"/>
 
         <!--lock_is_final-->
-        <Label Grid.Row="4" Grid.Column="0"
+            <Label Grid.Row="4" Grid.Column="0"
                Content="Blocage definitif ?"/>
-        <CheckBox Grid.Row="4" Grid.Column="1"
-                  Name="ui_is_lock_is_final"/>
+            <CheckBox Grid.Row="4" Grid.Column="1"
+                  Name="ui_is_lock_is_final" IsChecked="{Binding is_lock_final}"/>
 
-        <!--player_success_image_path-->
-        <Label Grid.Row="5" Grid.Column="0"
+            <!--player_success_image_path-->
+            <Label Grid.Row="5" Grid.Column="0"
                Content="Victoire : Image"/>
-        <DockPanel Grid.Row="5" Grid.Column="1" LastChildFill="True">
-            <Button Content="selection fichier" Click="button_PickImageFile" Tag="{Binding ui_player_success_image_path}"/>
-            <TextBox Name="ui_player_success_image_path" MouseDoubleClick="textBox_PickImageFile"
-                     ToolTip="Double click to open a file-picker"/>
-        </DockPanel>
-        <!--todo : show image ?-->
+            <StackPanel Grid.Row="5" Grid.Column="1" >
+                <DockPanel LastChildFill="True">
+                    <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerSuccessImagePath"/>
+                    <TextBox Name="ui_PlayerSuccessImagePath" Text="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         MouseDoubleClick="textBox_PickImageFile"
+                         TextChanged="TextBox_PathValue_TextChanged"
+                         ToolTip="Double click to open a file-picker"/>
+                </DockPanel>
+                    <Image Height="100"
+                           Source="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           MouseDown="image_MouseDown_selectSourceFile"
+                           />
+            </StackPanel>
+            <!--todo : show image ?-->
 
-        <!--player_defeat_image_path-->
-        <Label Grid.Row="6" Grid.Column="0"
+            <!--player_defeat_image_path-->
+            <Label Grid.Row="6" Grid.Column="0"
                Content="Defaite : Image"/>
-        <DockPanel Grid.Row="6" Grid.Column="1" LastChildFill="True">
-            <Button Content="selection fichier" Click="button_PickImageFile" Tag="{Binding ui_player_defeat_image_path}"/>
-            <TextBox Name="ui_player_defeat_image_path" MouseDoubleClick="textBox_PickImageFile"
-                     ToolTip="Double click to open a file-picker"/>
-        </DockPanel>
-        <!--todo : show image ?-->
-        
-    </Grid>
+            <StackPanel Grid.Row="6" Grid.Column="1" >
+                <DockPanel LastChildFill="True">
+                    <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerDefeatImagePath"/>
+                    <TextBox Name="ui_PlayerDefeatImagePath" Text="{Binding PlayerDefeatImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         MouseDoubleClick="textBox_PickImageFile"
+                         TextChanged="TextBox_PathValue_TextChanged"
+                         ToolTip="Double click to open a file-picker"/>
+                </DockPanel>
+                <Image Height="100" Source="{Binding PlayerDefeatImagePath, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <!--todo : show image ?-->
+
+        </Grid>
         <Button Content="Valider" Click="validate"/>
     </StackPanel>
 </Window>

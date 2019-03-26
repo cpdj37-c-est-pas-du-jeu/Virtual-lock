@@ -27,10 +27,12 @@ namespace CPDJ_VirtualLock
         // todo : state machine :
         // ready -> running -> [input_enabled || input_frozen] -> stopped : [success || defeat]
 
-        private Configuration configuration = new Configuration();
+        private Configuration configuration;
 
-        public MainWindow()
+        public MainWindow(Configuration configuration_arg)
         {
+            configuration = configuration_arg;
+
             InitializeComponent();
             DataContext = this;
             ui_start_button.Focus();
