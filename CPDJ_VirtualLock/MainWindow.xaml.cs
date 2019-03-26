@@ -16,7 +16,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-
 namespace CPDJ_VirtualLock
 {
     /// <summary>
@@ -64,7 +63,7 @@ namespace CPDJ_VirtualLock
             ui_remainingTime_progressBar.Minimum = 0;
             ui_remainingTime_progressBar.Maximum = Convert.ToInt32(time.TotalSeconds); // can throw overflow exception
 
-            _remainingTry = _configuration.TryBeforeLock;
+            RemainingTry = _configuration.TryBeforeLock;
             RemainingTime = time;
             timer = new DispatcherTimer
             (
@@ -113,9 +112,9 @@ namespace CPDJ_VirtualLock
         {
             // add to try list [?] + _configuration.IsTryListVisible
 
-            _remainingTry -= 1;
+            RemainingTry -= 1;
             OnPropertyChanged("RemainingTryAsString");
-            if (_remainingTry == 0)
+            if (RemainingTry == 0)
             {
                 if (_configuration.IsLockFinal)
                 {   // defeat
@@ -123,13 +122,16 @@ namespace CPDJ_VirtualLock
                     return;
                 }
                 FreezeInputs(_configuration.LockDuration);
-                _remainingTry = _configuration.TryBeforeLock;
+                RemainingTry = _configuration.TryBeforeLock;
                 OnPropertyChanged("RemainingTryAsString");
             }
         }
         private BackgroundWorker freeze_inputs_backgroundWorker;
         private void FreezeInputs(TimeSpan duration)
         {
+            if (duration == TimeSpan.Zero)
+                return;
+
             if (duration < TimeSpan.FromSeconds(1))
                 throw new ArgumentException("FreezeInputs : invalid duration (<1s)");
 

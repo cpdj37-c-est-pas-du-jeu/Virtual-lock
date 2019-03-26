@@ -60,7 +60,8 @@
                Content="Duree des blocages"
                    Foreground="Gray" FontWeight="Bold"/>
             <TextBox Grid.Row="3" Grid.Column="1"
-                     Text="{Binding LockDuration, StringFormat={}{0:hh':'mm':'ss}, UpdateSourceTrigger=PropertyChanged}"
+                     Name="ui_TextBoxDurationTime"
+                     Text="{Binding LockDuration, StringFormat={}{0:hh':'mm':'ss}}"
                      TextChanged="TextBox_TimeValue_TextChanged"/>
 
             <!--lock_is_final-->
@@ -68,7 +69,7 @@
                Content="Blocage definitif ?"
                    Foreground="Gray" FontWeight="Bold"/>
             <CheckBox Grid.Row="4" Grid.Column="1"
-                      Name="ui_is_lock_is_final" IsChecked="{Binding is_lock_final}"
+                      Name="ui_is_lock_is_final" IsChecked="{Binding IsLockFinalWrapper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       VerticalAlignment="Center"
                       />
 
@@ -85,8 +86,8 @@
                          ToolTip="Double click to open a file-picker"/>
                 </DockPanel>
                 <Image Height="100"
-                           Source="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                           MouseDown="image_MouseDown_selectSourceFile"/>
+                       Source="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       MouseDown="image_MouseDown_selectSourceFile"/>
             </StackPanel>
 
             <!--player_defeat_image_path-->
@@ -101,7 +102,8 @@
                          TextChanged="TextBox_PathValue_TextChanged"
                          ToolTip="Double click to open a file-picker"/>
                 </DockPanel>
-                <Image Height="100" Source="{Binding PlayerDefeatImagePath, UpdateSourceTrigger=PropertyChanged}"
+                <Image Height="100"
+                       Source="{Binding PlayerDefeatImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        MouseDown="image_MouseDown_selectSourceFile"/>
             </StackPanel>
         </Grid>

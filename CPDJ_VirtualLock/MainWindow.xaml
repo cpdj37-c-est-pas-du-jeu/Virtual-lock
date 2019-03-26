@@ -97,7 +97,7 @@
                     <Viewbox Stretch="Fill">
                         <Label
                             Name="ui_remaining_try"
-                            Content="{Binding Path=RemainingTry, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="ExtraBold"
+                            Content="{Binding Path=RemainingTry, UpdateSourceTrigger=PropertyChanged}" FontWeight="ExtraBold"
                             FontFamily="pack://application:,,,/ressources/fonts/Hacked CRT.ttf#Hacked CRT"
                             Foreground="DarkGreen" Background="Black"
                             />

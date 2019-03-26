@@ -22,7 +22,7 @@ namespace CPDJ_VirtualLock
     /// <summary>
     /// Interaction logic for configuration_form.xaml
     /// </summary>
-    public partial class ConfigurationForm : Window
+    public partial class ConfigurationForm : Window, INotifyPropertyChanged
     {
         private Configuration _configuration = null;
 
@@ -35,6 +35,31 @@ namespace CPDJ_VirtualLock
             _configuration = config_arg;
             this.DataContext = _configuration;
             InitializeComponent();
+
+            ui_is_lock_is_final.DataContext = this; // for IsLockFinalWrapper
+        }
+
+        public bool IsLockFinalWrapper
+        {   // IsChecked ? enable/disable ui_TextBoxDurationTime
+            set
+            {
+                if (value == false)
+                {
+                    ui_TextBoxDurationTime.IsEnabled = true;
+                }
+                else
+                {
+                    _configuration.LockDuration = TimeSpan.FromSeconds(1);
+                    ui_TextBoxDurationTime.IsEnabled = false;
+                }
+
+                _configuration.IsLockFinal = value;
+                OnPropertyChanged();
+            }
+            get
+            {
+                return _configuration.IsLockFinal;
+            }
         }
 
         static private String GetFilePath()
@@ -44,6 +69,8 @@ namespace CPDJ_VirtualLock
             switch (result)
             {
                 case System.Windows.Forms.DialogResult.OK:
+                    if (!fileDialog.CheckPathExists)
+                        return "";
                     var file = fileDialog.FileName;
                     return file;
                 case System.Windows.Forms.DialogResult.Cancel:
@@ -132,5 +159,11 @@ namespace CPDJ_VirtualLock
 
         }
         #endregion
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

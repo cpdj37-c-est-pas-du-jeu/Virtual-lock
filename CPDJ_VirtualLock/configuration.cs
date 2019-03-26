@@ -61,7 +61,7 @@ namespace CPDJ_VirtualLock
             }
         }
         [XmlElement("TotalDuration")]
-        private long TotalDurationTicks
+        public long TotalDurationTicks
         {
             get { return TotalDuration.Ticks; }
             set { TotalDuration = new TimeSpan(value); }
@@ -84,7 +84,7 @@ namespace CPDJ_VirtualLock
 
         #region player attempts
         [XmlIgnore]
-        private uint _tryBeforeLock = 0;
+        private uint _tryBeforeLock = 1;
         public uint TryBeforeLock
         {
             get { return _tryBeforeLock; }
@@ -108,7 +108,7 @@ namespace CPDJ_VirtualLock
             }
         }
         [XmlElement("lock_duration")]
-        private long LockDurationTicks
+        public long LockDurationTicks
         {
             get { return LockDuration.Ticks; }
             set { LockDuration = new TimeSpan(value); }
@@ -123,8 +123,6 @@ namespace CPDJ_VirtualLock
             }
             set
             {
-                if (value == true)
-                    LockDuration = TimeSpan.MaxValue;
                 _is_lock_final = value;
                 RaisePropertyChange();
             }
@@ -133,10 +131,15 @@ namespace CPDJ_VirtualLock
 
         #region game_over
         [XmlIgnore]
-        private String _playerDefeatImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+        private String _playerDefeatImagePath = null;
         public String PlayerDefeatImagePath
         {
-            get { return _playerDefeatImagePath; }
+            get
+            {
+                if (_playerDefeatImagePath == null || _playerDefeatImagePath == "")
+                    return new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+                return _playerDefeatImagePath;
+            }
             set
             {
                 _playerDefeatImagePath = value;
@@ -144,10 +147,15 @@ namespace CPDJ_VirtualLock
             }
         }
         [XmlIgnore]
-        private String _playerSuccessImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+        private String _playerSuccessImagePath = null;
         public String PlayerSuccessImagePath
         {
-            get { return _playerSuccessImagePath; }
+            get
+            {
+                if (_playerSuccessImagePath == null || _playerSuccessImagePath == "")
+                    return new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+                return _playerSuccessImagePath;
+            }
             set
             {
                 _playerSuccessImagePath = value;
@@ -168,8 +176,8 @@ namespace CPDJ_VirtualLock
         private bool is_valid()
         {
             return
-                File.Exists(_playerDefeatImagePath) &&
-                File.Exists(_playerSuccessImagePath) &&
+                File.Exists(_playerDefeatImagePath.Replace("file:///", "")) &&
+                File.Exists(_playerSuccessImagePath.Replace("file:///", "")) &&
                 (TotalDuration > TimeSpan.Zero) &&
                 ((TotalDuration > LockDuration) || IsLockFinal)
                 ;
