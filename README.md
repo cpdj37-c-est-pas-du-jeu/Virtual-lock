@@ -18,7 +18,6 @@ Fonctionnalites additionnels :
 - Configuration via formulaire
 
 Idees d'ajouts :
-- Des elements sonores
 - Des evenements ponctuels
 - Des alertes sonores pour rappeler aux joueurs l'echeance (renforce le concepte de pression)
   > Pour garantir la progression des joueurs : des indices (audio, videos, etc) se debloquent a certains intervales
