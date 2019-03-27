@@ -269,7 +269,9 @@ namespace CPDJ_VirtualLock
                 is_uri_valid(PlayerDefeatSoundPath) &&
                 is_uri_valid(PlayerSuccessSoundPath) &&
                 is_uri_valid(PlayerBadInputSoundPath) &&
-                is_uri_valid(IntervalSoundPath)
+
+                is_uri_valid(IntervalSoundPath) &&
+                IntervalSound > TimeSpan.Zero
                 ;
         }
         #endregion

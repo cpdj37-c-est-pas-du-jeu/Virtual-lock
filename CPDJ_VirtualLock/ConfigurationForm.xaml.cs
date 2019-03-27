@@ -186,6 +186,9 @@ namespace CPDJ_VirtualLock
             }
             else
                 text_box.Background = Brushes.LightGreen;
+
+            text_box.CaretIndex = text_box.Text.Length;
+            text_box.ScrollToEnd();
         }
         private static readonly Regex _isNumericalRegex = new Regex("[^0-9.-]+");
         private void TextBox_NumericalValue_TextChanged(object sender, TextChangedEventArgs e)

@@ -33,6 +33,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!--Totale duration-->
@@ -125,7 +126,7 @@
 
             <!--PlayerDefeatSoundPath-->
             <Label Grid.Row="8" Grid.Column="0"
-                   Content="Musique : Son de defaite"
+                   Content="Son : defaite"
                    Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="8" Grid.Column="1">
                 <TextBox
@@ -137,7 +138,7 @@
             
             <!--PlayerSuccessSoundPath-->
             <Label Grid.Row="9" Grid.Column="0"
-                   Content="Musique : Son de defaite"
+                   Content="Son : victoire"
                    Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="9" Grid.Column="1">
                 <TextBox
@@ -149,7 +150,7 @@
             
             <!--PlayerBadInputSoundPath-->
             <Label Grid.Row="10" Grid.Column="0"
-                   Content="Musique : Son de defaite"
+                   Content="Son : saisie invalide"
                    Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="10" Grid.Column="1">
                 <TextBox
@@ -158,12 +159,21 @@
                 <local:SoundPlayer x:Name="ui_PlayerBadInputSoundPath"
                                    MediaSource="{Binding PlayerBadInputSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
+
+            <Label Grid.Row="11" Grid.Column="0"
+                   Content="Frequence du son par interval"
+                   Foreground="Gray" FontWeight="Bold"/>
+            <TextBox
+                Grid.Row="11" Grid.Column="1"
+                Name="ui_textBox_intervalFrequency"
+                Text="{Binding IntervalSound, StringFormat={}{0:hh':'mm':'ss}}"
+                TextChanged="TextBox_TimeValue_TextChanged"/>
             
             <!--IntervalSoundPath-->
-            <Label Grid.Row="11" Grid.Column="0"
-                   Content="Musique : Son de defaite"
+            <Label Grid.Row="12" Grid.Column="0"
+                   Content="Son : par interval"
                    Foreground="Gray" FontWeight="Bold"/>
-            <StackPanel Grid.Row="11" Grid.Column="1">
+            <StackPanel Grid.Row="12" Grid.Column="1">
                 <TextBox
                     TextChanged="TextBox_PathValue_TextChanged"
                     Text="{Binding IntervalSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
