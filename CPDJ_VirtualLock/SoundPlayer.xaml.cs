@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
@@ -53,22 +54,24 @@ namespace CPDJ_VirtualLock
         public SoundPlayer()
         {
             InitializeComponent();
-
             LayoutRoot.DataContext = this; // OMG !
+
+            Initialize_ui_SliderProgress_Thumb_Template();
 
             _timer = new DispatcherTimer
             (
-                TimeSpan.FromSeconds(1),
+                TimeSpan.FromMilliseconds(100),
                 DispatcherPriority.Normal,
                 delegate
                 {
                     if (ui_MediaPlayer.Source != null &&
                         ui_MediaPlayer.NaturalDuration.HasTimeSpan &&
-                        _isUserDraggingSlider)
+                        !_isUserDraggingSlider)
                     {
-                        //ui_SliderProgress.Minimum = 0;
-                        //ui_SliderProgress.Maximum = ui_MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+                        ui_SliderProgress.Minimum = 0;
+                        ui_SliderProgress.Maximum = ui_MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
                         ui_SliderProgress.Value = ui_MediaPlayer.Position.TotalSeconds;
+                        ui_LabelProgressStatus.Text = ui_MediaPlayer.Position.ToString(@"hh\:mm\:ss");
                     }
                 }, System.Windows.Application.Current.Dispatcher
             );
@@ -93,6 +96,7 @@ namespace CPDJ_VirtualLock
             }
         }
 
+        #region Toolbar buttons
         private void ui_ButtonOpenSource_Click(object sender, RoutedEventArgs e)
         {
             var media_source = GetFilePath("Media files (*.mp3;*.mpg;*.mpeg)|*.mp3;*.mpg;*.mpeg|All files (*.*)|*.*");
@@ -114,5 +118,33 @@ namespace CPDJ_VirtualLock
         {
             ui_MediaPlayer.Pause();
         }
+        #endregion
+
+        #region Progression slider
+        private void ui_SliderProgress_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            _isUserDraggingSlider = true;
+        }
+        private void ui_SliderProgress_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            _isUserDraggingSlider = false;
+            ui_MediaPlayer.Position = TimeSpan.FromSeconds((sender as Slider).Value);
+        }
+        private void ui_SliderProgress_Template_Thumb_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && e.MouseDevice.Captured == null)
+            {
+                MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left);
+                args.RoutedEvent = MouseLeftButtonDownEvent;
+                (sender as Thumb).RaiseEvent(args);
+            }
+        }
+        private void Initialize_ui_SliderProgress_Thumb_Template()
+        {
+            ui_SliderProgress.ApplyTemplate();
+            Thumb thumb = (ui_SliderProgress.Template.FindName("PART_Track", ui_SliderProgress) as Track).Thumb;
+            thumb.MouseEnter += new System.Windows.Input.MouseEventHandler(ui_SliderProgress_Template_Thumb_MouseEnter);
+        }
+        #endregion
     }
 }

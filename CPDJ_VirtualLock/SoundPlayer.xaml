@@ -37,21 +37,21 @@
             </StatusBar.ItemsPanel>
             <StatusBarItem>
                 <TextBlock Name="ui_LabelProgressStatus"
-                           Text="{Binding Position, ElementName=ui_MediaPlayer, StringFormat={}{0:hh':'mm':'ss}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                           Text="00:00:00"
                            />
+                <!--Text="{Binding Position, ElementName=ui_MediaPlayer, StringFormat={}{0:hh':'mm':'ss}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"-->
             </StatusBarItem>
             <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
                 <Slider Name="ui_SliderProgress"
-                        Minimum="0" Maximum="{Binding Path=NaturalDuration.TimeSpan.TotalSeconds, Mode=OneWay, ElementName=ui_MediaPlayer}"
-                        />
-                <!--Value="{Binding Path=Position.TotalSeconds, ElementName=ui_MediaPlayer}"-->
-                <!--Thumb.DragStarted="ui_SliderProgress_DragStarted" 
+                        Minimum="0" Maximum="1"
+                        Thumb.DragStarted="ui_SliderProgress_DragStarted" 
                         Thumb.DragCompleted="ui_SliderProgress_DragCompleted"
-                        ValueChanged="ui_SliderProgress_ValueChanged" />-->
+                        IsMoveToPointEnabled="True"
+                        
+                        />
+                <!--Maximum="{Binding Path=NaturalDuration.TimeSpan.TotalSeconds, Mode=OneWay, ElementName=ui_MediaPlayer}"-->
+                <!--Value="{Binding Path=Position.TotalSeconds, ElementName=ui_MediaPlayer}"-->
             </StatusBarItem>
-            <!--<StatusBarItem Grid.Column="2">
-                <ProgressBar Name="ui_ProgressBarVolume" Width="50" Height="12" Maximum="1" Value="{Binding ElementName=mePlayer, Path=Volume}" />
-            </StatusBarItem>-->
         </StatusBar>
     </Grid>
 </UserControl>
