@@ -47,9 +47,9 @@ namespace CPDJ_VirtualLock
         #region Audio
         private MediaPlayer _musicMediaPlayer = new MediaPlayer();
         private MediaPlayer _soundsMediaPlayer = new MediaPlayer();
-        private void PlayAmbianceMusic(String path)
+        private void PlayAmbianceMusic(Uri path)
         {
-            _musicMediaPlayer.Open(new Uri(path));
+            _musicMediaPlayer.Open(path);
             _musicMediaPlayer.MediaEnded += (sender, e) =>
             {
                 var media = sender as MediaPlayer;
@@ -59,9 +59,9 @@ namespace CPDJ_VirtualLock
             };
             _musicMediaPlayer.Play();
         }
-        private void PlaySound(String path)
+        private void PlaySound(Uri path)
         {
-            _soundsMediaPlayer.Open(new Uri(path));
+            _soundsMediaPlayer.Open(path);
             _soundsMediaPlayer.Play();
         }
 
@@ -78,7 +78,7 @@ namespace CPDJ_VirtualLock
             {
                 PlaySound(_configuration.IntervalSoundPath);
                 #region interval sound player/dispatcher
-                _intervalSoundMediaPlayer.Open(new Uri(_configuration.IntervalSoundPath));
+                _intervalSoundMediaPlayer.Open(_configuration.IntervalSoundPath);
                 _intervalSoundDispatcher = new DispatcherTimer
                 (   // play a sound at interval
                     TimeSpan.FromSeconds(15),

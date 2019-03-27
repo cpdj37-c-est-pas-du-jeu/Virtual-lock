@@ -79,14 +79,15 @@
                    Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="5" Grid.Column="1" >
                 <DockPanel LastChildFill="True">
-                    <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerSuccessImagePath"/>
+                    <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerSuccessImagePathAsImageSource"/>
+                    <!--Tag="PlayerSuccessImagePath"-->
                     <TextBox Name="ui_PlayerSuccessImagePath" Text="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         MouseDoubleClick="textBox_PickImageFile"
                          TextChanged="TextBox_PathValue_TextChanged"
                          ToolTip="Double click to open a file-picker"/>
                 </DockPanel>
                 <Image Height="100"
-                       Source="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       Name="ui_PlayerSuccessImage"
+                       Source="{Binding PlayerSuccessImagePathAsImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        MouseDown="image_MouseDown_selectSourceFile"/>
             </StackPanel>
 
@@ -96,14 +97,14 @@
                    Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="6" Grid.Column="1" >
                 <DockPanel LastChildFill="True">
-                    <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerDefeatImagePath"/>
+                    <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerDefeatImagePathAsImageSource"/>
                     <TextBox Name="ui_PlayerDefeatImagePath" Text="{Binding PlayerDefeatImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         MouseDoubleClick="textBox_PickImageFile"
                          TextChanged="TextBox_PathValue_TextChanged"
                          ToolTip="Double click to open a file-picker"/>
                 </DockPanel>
                 <Image Height="100"
-                       Source="{Binding PlayerDefeatImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       Name="ui_PlayerDefeatImage"
+                       Source="{Binding PlayerDefeatImagePathAsImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        MouseDown="image_MouseDown_selectSourceFile"/>
             </StackPanel>
         </Grid>

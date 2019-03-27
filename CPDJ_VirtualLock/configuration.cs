@@ -131,14 +131,14 @@ namespace CPDJ_VirtualLock
 
         #region game_over
         [XmlIgnore]
-        private readonly String defaultMissingImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+        private readonly Uri defaultMissingImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png");
         [XmlIgnore]
-        private String _playerDefeatImagePath = null;
-        public String PlayerDefeatImagePath
+        private Uri _playerDefeatImagePath = null;
+        public Uri PlayerDefeatImagePath
         {
             get
             {
-                if (_playerDefeatImagePath == null || _playerDefeatImagePath == "")
+                if (_playerDefeatImagePath == null)
                     return defaultMissingImagePath;
                 return _playerDefeatImagePath;
             }
@@ -149,12 +149,12 @@ namespace CPDJ_VirtualLock
             }
         }
         [XmlIgnore]
-        private String _playerSuccessImagePath = null;
-        public String PlayerSuccessImagePath
+        private Uri _playerSuccessImagePath = null;
+        public Uri PlayerSuccessImagePath
         {
             get
             {
-                if (_playerSuccessImagePath == null || _playerSuccessImagePath == "")
+                if (_playerSuccessImagePath == null)
                     return defaultMissingImagePath;
                 return _playerSuccessImagePath;
             }
@@ -167,11 +167,11 @@ namespace CPDJ_VirtualLock
         #endregion
 
         #region audio
-        public String PlayerDefeatSoundPath { get; set; } = null;
-        public String PlayerSuccessSoundPath { get; set; } = null;
-        public String PlayerBadInputSoundPath { get; set; } = null;
-        public String AmbianceMusicSoundPath { get; set; } = null;
-        public String IntervalSoundPath { get; set; } = null;
+        public Uri PlayerDefeatSoundPath { get; set; } = null;
+        public Uri PlayerSuccessSoundPath { get; set; } = null;
+        public Uri PlayerBadInputSoundPath { get; set; } = null;
+        public Uri AmbianceMusicSoundPath { get; set; } = null;
+        public Uri IntervalSoundPath { get; set; } = null;
         [XmlIgnore]
         private TimeSpan _intervalSound = TimeSpan.Zero;
         [XmlIgnore]
@@ -198,11 +198,20 @@ namespace CPDJ_VirtualLock
         {
             get { return is_valid(); }
         }
+        private bool is_uri_valid(Uri value)
+        {
+            return
+            (
+                value != null &&
+                (value.Scheme == "pack" ||
+                (value.IsFile && File.Exists(value.AbsolutePath)))
+            );
+        }
         private bool is_valid()
         {
             return
-                File.Exists(_playerDefeatImagePath.Replace("file:///", "")) &&
-                File.Exists(_playerSuccessImagePath.Replace("file:///", "")) &&
+                is_uri_valid(_playerDefeatImagePath) &&
+                is_uri_valid(_playerSuccessImagePath) &&
                 (TotalDuration > TimeSpan.Zero) &&
                 ((TotalDuration > LockDuration) || IsLockFinal)
                 ;

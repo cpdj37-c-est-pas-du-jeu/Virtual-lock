@@ -36,9 +36,13 @@ namespace CPDJ_VirtualLock
             this.DataContext = _configuration;
             InitializeComponent();
 
+            // Binding wrappers
             ui_is_lock_is_final.DataContext = this; // for IsLockFinalWrapper
+            ui_PlayerSuccessImage.DataContext = this;
+            ui_PlayerDefeatImage.DataContext = this;
         }
 
+        #region Binding wrappers
         public bool IsLockFinalWrapper
         {   // IsChecked ? enable/disable ui_TextBoxDurationTime
             set
@@ -61,8 +65,41 @@ namespace CPDJ_VirtualLock
                 return _configuration.IsLockFinal;
             }
         }
+        public BitmapImage PlayerDefeatImagePathAsImageSource
+        {
+            get
+            {
+                BitmapImage image_source = new BitmapImage();
+                image_source.BeginInit();
+                image_source.UriSource = _configuration.PlayerDefeatImagePath;
+                image_source.EndInit();
+                return image_source;
+            }
+            set
+            {
+                _configuration.PlayerDefeatImagePath = value.UriSource;
+                OnPropertyChanged();
+            }
+        }
+        public BitmapImage PlayerSuccessImagePathAsImageSource
+        {
+            get
+            {
+                BitmapImage image_source = new BitmapImage();
+                image_source.BeginInit();
+                image_source.UriSource = _configuration.PlayerSuccessImagePath;
+                image_source.EndInit();
+                return image_source;
+            }
+            set
+            {
+                _configuration.PlayerSuccessImagePath = value.UriSource;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
 
-        static private String GetFilePath()
+        static private Uri GetFilePath()
         {
             var fileDialog = new System.Windows.Forms.OpenFileDialog();
             var result = fileDialog.ShowDialog();
@@ -70,34 +107,40 @@ namespace CPDJ_VirtualLock
             {
                 case System.Windows.Forms.DialogResult.OK:
                     if (!fileDialog.CheckPathExists)
-                        return "";
-                    var file = fileDialog.FileName;
-                    return file;
+                        return null;
+                    return new Uri(fileDialog.FileName);
                 case System.Windows.Forms.DialogResult.Cancel:
                 default:
-                    return "";
+                    return null;
             }
         }
 
         #region select image
-        private void textBox_PickImageFile(object sender, RoutedEventArgs e)
-        {
-            (sender as TextBox).Text = GetFilePath();
-        }
         private void button_PickImageFile(object sender, RoutedEventArgs e)
         {
             var property_name = (sender as Button).Tag.ToString();
-            this._configuration.GetType().GetProperty(property_name).SetValue(this._configuration, GetFilePath());
+            //this._configuration.GetType().GetProperty(property_name).SetValue(this._configuration, GetFilePath());
+
+            var file_path = GetFilePath();
+            if (file_path == null)
+                return;
+
+            var image_value = new BitmapImage();
+            image_value.BeginInit();
+            image_value.UriSource = file_path;
+            image_value.EndInit();
+
+            this.GetType().GetProperty(property_name).SetValue(this, image_value);
         }
         private void image_MouseDown_selectSourceFile(object sender, RoutedEventArgs e)
         {
             var image_path = GetFilePath();
-            if (image_path == "")
+            if (image_path == null)
                 return;
 
             BitmapImage image_source = new BitmapImage();
             image_source.BeginInit();
-            image_source.UriSource = new Uri(image_path);
+            image_source.UriSource = image_path;
             image_source.EndInit();
 
             (sender as Image).Source = image_source;
@@ -134,9 +177,9 @@ namespace CPDJ_VirtualLock
         {
             var text_box = sender as TextBox;
 
-            text_box.Text = text_box.Text.Replace("file:///", "");
+            var value = new Uri(text_box.Text);
 
-            if (text_box.Text == "" || !File.Exists(text_box.Text))
+            if (value.Scheme != "pack" && (!value.IsFile || !File.Exists(value.AbsolutePath)))
             {
                 text_box.Background = Brushes.LightPink;
             }
