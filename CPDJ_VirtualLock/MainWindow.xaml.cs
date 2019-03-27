@@ -44,6 +44,57 @@ namespace CPDJ_VirtualLock
             ui_start_button.Focus();
         }
 
+        #region Audio
+        private MediaPlayer _musicMediaPlayer = new MediaPlayer();
+        private MediaPlayer _soundsMediaPlayer = new MediaPlayer();
+        private void PlayAmbianceMusic(String path)
+        {
+            _musicMediaPlayer.Open(new Uri(path));
+            _musicMediaPlayer.MediaEnded += (sender, e) =>
+            {
+                var media = sender as MediaPlayer;
+
+                media.Position = TimeSpan.Zero;
+                media.Play();
+            };
+            _musicMediaPlayer.Play();
+        }
+        private void PlaySound(String path)
+        {
+            _soundsMediaPlayer.Open(new Uri(path));
+            _soundsMediaPlayer.Play();
+        }
+
+        private DispatcherTimer _intervalSoundDispatcher;
+        private MediaPlayer _intervalSoundMediaPlayer = new MediaPlayer();
+
+        private void InitializeSounds()
+        {
+            if (_configuration.AmbianceMusicSoundPath != null)
+                PlayAmbianceMusic(_configuration.AmbianceMusicSoundPath);
+
+            #region interval sounds
+            if (_configuration.IntervalSoundPath != null)
+            {
+                PlaySound(_configuration.IntervalSoundPath);
+                #region interval sound player/dispatcher
+                _intervalSoundMediaPlayer.Open(new Uri(_configuration.IntervalSoundPath));
+                _intervalSoundDispatcher = new DispatcherTimer
+                (   // play a sound at interval
+                    TimeSpan.FromSeconds(15),
+                    DispatcherPriority.Normal,
+                    delegate
+                    {
+                        _intervalSoundMediaPlayer.Position = TimeSpan.Zero;
+                        _intervalSoundMediaPlayer.Play();
+                    }, Application.Current.Dispatcher
+                );
+                #endregion
+            }
+            #endregion
+        }
+        #endregion
+
         #region Countdown
         private DispatcherTimer timer;
         private TimeSpan _remainingTime = TimeSpan.Zero;
@@ -65,14 +116,16 @@ namespace CPDJ_VirtualLock
 
             RemainingTry = _configuration.TryBeforeLock;
             RemainingTime = time;
+
+            InitializeSounds();
+
             timer = new DispatcherTimer
-            (
+            (   // handle timer and defeat condition
                 TimeSpan.FromSeconds(1),
                 DispatcherPriority.Normal,
                 delegate
                 {
                     ui_remainingTime_progressBar.Value = time.TotalSeconds - RemainingTime.TotalSeconds;
-                    //ui_countdown.Text = RemainingTime.ToString(@"hh\:mm\:ss"); // "c"
                     if (RemainingTime == TimeSpan.Zero)
                     {
                         timer.Stop();
@@ -111,6 +164,9 @@ namespace CPDJ_VirtualLock
         private void OnPlayerBadInput()
         {
             // add to try list [?] + _configuration.IsTryListVisible
+
+            if (_configuration.PlayerBadInputSoundPath != null)
+                PlaySound(_configuration.PlayerBadInputSoundPath);
 
             RemainingTry -= 1;
             OnPropertyChanged("RemainingTryAsString");
@@ -175,15 +231,31 @@ namespace CPDJ_VirtualLock
             {
                 freeze_inputs_backgroundWorker.CancelAsync();
             }
-            timer.Stop(); // useless
+            timer.Stop();
+            if (_intervalSoundDispatcher != null)
+                _intervalSoundDispatcher.Stop();
+
             ui_grid_countdown.Visibility = Visibility.Collapsed;
             ui_grid_failure.Visibility = Visibility.Visible;
+
+            _musicMediaPlayer.Stop();
+
+            if (_configuration.PlayerDefeatSoundPath != null)
+                PlaySound(_configuration.PlayerDefeatSoundPath);
         }
         private void OnPlayerSuccess()
         {
             timer.Stop();
+            if (_intervalSoundDispatcher != null)
+                _intervalSoundDispatcher.Stop();
+
             ui_grid_countdown.Visibility = Visibility.Collapsed;
             ui_grid_success.Visibility = Visibility.Visible;
+
+            _musicMediaPlayer.Stop();
+
+            if (_configuration.PlayerSuccessSoundPath != null)
+                PlaySound(_configuration.PlayerSuccessSoundPath);
         }
         #endregion
 

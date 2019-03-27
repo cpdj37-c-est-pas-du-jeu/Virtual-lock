@@ -167,6 +167,29 @@ namespace CPDJ_VirtualLock
         #endregion
 
         #region audio
+        public String PlayerDefeatSoundPath { get; set; } = null;
+        public String PlayerSuccessSoundPath { get; set; } = null;
+        public String PlayerBadInputSoundPath { get; set; } = null;
+        public String AmbianceMusicSoundPath { get; set; } = null;
+        public String IntervalSoundPath { get; set; } = null;
+        [XmlIgnore]
+        private TimeSpan _intervalSound = TimeSpan.Zero;
+        [XmlIgnore]
+        public TimeSpan IntervalSound
+        {
+            get { return _intervalSound; }
+            set
+            {
+                _intervalSound = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlElement("IntervalSound")]
+        public long IntervalSoundTicks
+        {
+            get { return IntervalSound.Ticks; }
+            set { IntervalSound = new TimeSpan(value); }
+        }
         #endregion
 
         #region validation

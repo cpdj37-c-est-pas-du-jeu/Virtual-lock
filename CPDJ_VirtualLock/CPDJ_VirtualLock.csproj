@@ -165,5 +165,13 @@
   <ItemGroup>
     <Resource Include="ressources\images\icons\missing_image.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="ressources\sounds\app_alert_tone_ringtone_002.mp3" />
+    <Content Include="ressources\sounds\Blastwave_FX_ChurchBells_BW.60957.mp3" />
+    <Content Include="ressources\sounds\lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3" />
+    <Content Include="ressources\sounds\noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3" />
+    <Content Include="ressources\sounds\science_fiction_computer_glitch_or_malfunction_004.mp3" />
+    <Content Include="ressources\sounds\zapsplat_explosion_large_boom_slight_distance_25207.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,28 +23,38 @@ namespace CPDJ_VirtualLock
                 LockDuration = TimeSpan.FromSeconds(3),
                 Password = "toto",
                 TryBeforeLock = 3,
-                PlayerDefeatImagePath = null,
-                PlayerSuccessImagePath = null
+                #region images
+                PlayerDefeatImagePath = new Uri("pack://application:,,,/ressources/images/busted.png").AbsolutePath,
+                PlayerSuccessImagePath = new Uri("pack://application:,,,/ressources/images/top_secret.png").AbsolutePath,
+                #endregion
+                #region audio
+                AmbianceMusicSoundPath = new Uri("pack://application:,,,/ressources/sounds/lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3").AbsolutePath,
+                IntervalSound = TimeSpan.FromSeconds(15),
+                IntervalSoundPath = new Uri("pack://application:,,,/ressources/sounds/noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3").AbsolutePath,
+                PlayerBadInputSoundPath = new Uri("pack://application:,,,/ressources/sounds/science_fiction_computer_glitch_or_malfunction_004.mp3").AbsolutePath,
+                PlayerDefeatSoundPath = new Uri("pack://application:,,,/ressources/sounds/zapsplat_explosion_large_boom_slight_distance_25207.mp3").AbsolutePath,
+                PlayerSuccessSoundPath = new Uri("pack://application:,,,/ressources/sounds/app_alert_tone_ringtone_002.mp3").AbsolutePath
+                #endregion
             };
+
+            try
             {
-                try
-                {
-                    Serializer.DeSerialize(Configuration.file_path, out configuration);
-                }
-                catch (Exception) { }
-
-                var config_form = new ConfigurationForm(ref configuration);
-                config_form.ShowDialog();
-
-                if (!configuration.IsValid)
-                    throw new Exception("CPDJ_VirtualLock.VL_App_Startup : Invalid configuration");
-
-                try
-                {
-                    Serializer.Serialize(Configuration.file_path, configuration);
-                }
-                catch (Exception) { }
+                Serializer.DeSerialize(Configuration.file_path, out configuration);
             }
+            catch (Exception) { }
+
+            var config_form = new ConfigurationForm(ref configuration);
+            config_form.ShowDialog();
+
+            if (!configuration.IsValid)
+                throw new Exception("CPDJ_VirtualLock.VL_App_Startup : Invalid configuration");
+
+            try
+            {
+                Serializer.Serialize(Configuration.file_path, configuration);
+            }
+            catch (Exception) { }
+
             return configuration;
         }
 
