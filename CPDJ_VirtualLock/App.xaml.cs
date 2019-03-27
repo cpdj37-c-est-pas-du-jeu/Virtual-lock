@@ -14,30 +14,45 @@ namespace CPDJ_VirtualLock
     /// </summary>
     public partial class App : Application
     {
+        private Configuration LoadConfiguration()
+        {
+            var configuration = new Configuration
+            {   // default values
+                IsLockFinal = false,
+                TotalDuration = TimeSpan.FromMinutes(1),
+                LockDuration = TimeSpan.FromSeconds(3),
+                Password = "toto",
+                TryBeforeLock = 3,
+                PlayerDefeatImagePath = null,
+                PlayerSuccessImagePath = null
+            };
+            {
+                try
+                {
+                    Serializer.DeSerialize(Configuration.file_path, out configuration);
+                }
+                catch (Exception) { }
+
+                var config_form = new ConfigurationForm(ref configuration);
+                config_form.ShowDialog();
+
+                if (!configuration.IsValid)
+                    throw new Exception("CPDJ_VirtualLock.VL_App_Startup : Invalid configuration");
+
+                try
+                {
+                    Serializer.Serialize(Configuration.file_path, configuration);
+                }
+                catch (Exception) { }
+            }
+            return configuration;
+        }
+
         private void VL_App_Startup(object sender, StartupEventArgs e)
         {
             try
             {
-                var configuration = new Configuration();
-                {
-                    try
-                    {
-                        Serializer.DeSerialize(Configuration.file_path, out configuration);
-                    }
-                    catch (Exception) { }
-
-                    var config_form = new ConfigurationForm(ref configuration);
-                    config_form.ShowDialog();
-
-                    try
-                    {
-                        Serializer.Serialize(Configuration.file_path, configuration);
-                    }
-                    catch (Exception) { }
-                }
-
-                if (!configuration.IsValid)
-                    throw new Exception("CPDJ_VirtualLock.VL_App_Startup : Invalid configuration");
+                Configuration configuration = LoadConfiguration();
 
                 var main_window = new MainWindow(configuration);
                 main_window.ShowDialog();

@@ -49,7 +49,7 @@ namespace CPDJ_VirtualLock
 
         #region total duration
         [XmlIgnore]
-        private TimeSpan _totalDuration = TimeSpan.FromMinutes(1);
+        private TimeSpan _totalDuration = TimeSpan.Zero;
         [XmlIgnore]
         public TimeSpan TotalDuration
         {
@@ -96,7 +96,7 @@ namespace CPDJ_VirtualLock
         }
 
         [XmlIgnore]
-        private TimeSpan _lockDuration = TimeSpan.FromSeconds(10);
+        private TimeSpan _lockDuration = TimeSpan.Zero;
         [XmlIgnore]
         public TimeSpan LockDuration
         {
@@ -131,13 +131,15 @@ namespace CPDJ_VirtualLock
 
         #region game_over
         [XmlIgnore]
+        private readonly String defaultMissingImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+        [XmlIgnore]
         private String _playerDefeatImagePath = null;
         public String PlayerDefeatImagePath
         {
             get
             {
                 if (_playerDefeatImagePath == null || _playerDefeatImagePath == "")
-                    return new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+                    return defaultMissingImagePath;
                 return _playerDefeatImagePath;
             }
             set
@@ -153,7 +155,7 @@ namespace CPDJ_VirtualLock
             get
             {
                 if (_playerSuccessImagePath == null || _playerSuccessImagePath == "")
-                    return new Uri("pack://application:,,,/ressources/images/icons/missing_image.png").AbsolutePath;
+                    return defaultMissingImagePath;
                 return _playerSuccessImagePath;
             }
             set

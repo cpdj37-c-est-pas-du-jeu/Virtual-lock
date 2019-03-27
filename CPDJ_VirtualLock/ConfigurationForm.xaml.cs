@@ -24,7 +24,7 @@ namespace CPDJ_VirtualLock
     /// </summary>
     public partial class ConfigurationForm : Window, INotifyPropertyChanged
     {
-        private Configuration _configuration = null;
+        private Configuration _configuration = null; // todo : default configuration
 
         public ConfigurationForm()
         {
