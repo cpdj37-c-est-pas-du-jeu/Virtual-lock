@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -49,6 +50,8 @@ namespace CPDJ_VirtualLock
         private MediaPlayer _soundsMediaPlayer = new MediaPlayer();
         private void PlayAmbianceMusic(Uri path)
         {
+            bool qwe = File.Exists(path.AbsolutePath);
+
             _musicMediaPlayer.Open(path);
             _musicMediaPlayer.MediaEnded += (sender, e) =>
             {
@@ -271,6 +274,7 @@ namespace CPDJ_VirtualLock
 
             StartTimer(_configuration.TotalDuration);
         }
+
         #region player input validation
         private void ui_passwordField_KeyUp(object sender, KeyEventArgs e)
         {

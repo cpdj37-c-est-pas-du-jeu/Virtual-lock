@@ -167,11 +167,62 @@ namespace CPDJ_VirtualLock
         #endregion
 
         #region audio
-        public Uri PlayerDefeatSoundPath { get; set; } = null;
-        public Uri PlayerSuccessSoundPath { get; set; } = null;
-        public Uri PlayerBadInputSoundPath { get; set; } = null;
-        public Uri AmbianceMusicSoundPath { get; set; } = null;
-        public Uri IntervalSoundPath { get; set; } = null;
+        [XmlIgnore]
+        private Uri _ambianceMusicSoundPath = null;
+        public Uri AmbianceMusicSoundPath
+        {
+            get { return _ambianceMusicSoundPath; }
+            set
+            {
+                _ambianceMusicSoundPath = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlIgnore]
+        private Uri _playerDefeatSoundPath = null;
+        public Uri PlayerDefeatSoundPath
+        {
+            get { return _playerDefeatSoundPath; }
+            set
+            {
+                _playerDefeatSoundPath = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlIgnore]
+        private Uri _playerSuccessSoundPath = null;
+        public Uri PlayerSuccessSoundPath
+        {
+            get { return _playerSuccessSoundPath; }
+            set
+            {
+                _playerSuccessSoundPath = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlIgnore]
+        private Uri _playerBadInputSoundPath = null;
+        public Uri PlayerBadInputSoundPath
+        {
+            get { return _playerBadInputSoundPath; }
+            set
+            {
+                _playerBadInputSoundPath = value;
+                RaisePropertyChange();
+            }
+        }
+        [XmlIgnore]
+        private Uri _intervalSoundPath = null;
+        public Uri IntervalSoundPath
+        {
+            get { return _intervalSoundPath; }
+            set
+            {
+                _intervalSoundPath = value;
+                RaisePropertyChange();
+            }
+        }
+
         [XmlIgnore]
         private TimeSpan _intervalSound = TimeSpan.Zero;
         [XmlIgnore]
@@ -213,7 +264,12 @@ namespace CPDJ_VirtualLock
                 is_uri_valid(_playerDefeatImagePath) &&
                 is_uri_valid(_playerSuccessImagePath) &&
                 (TotalDuration > TimeSpan.Zero) &&
-                ((TotalDuration > LockDuration) || IsLockFinal)
+                ((TotalDuration > LockDuration) || IsLockFinal) &&
+                is_uri_valid(AmbianceMusicSoundPath) &&
+                is_uri_valid(PlayerDefeatSoundPath) &&
+                is_uri_valid(PlayerSuccessSoundPath) &&
+                is_uri_valid(PlayerBadInputSoundPath) &&
+                is_uri_valid(IntervalSoundPath)
                 ;
         }
         #endregion

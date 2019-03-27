@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,12 @@ namespace CPDJ_VirtualLock
     {
         private Configuration LoadConfiguration()
         {
+            var current_path = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+
+
+            if (!Directory.Exists(current_path + "/ressources/sounds"))
+                throw new Exception(current_path + "\n\nBad execution directory. Make sure that all provided ressources are correct. If not, reinstall.");
+
             var configuration = new Configuration
             {   // default values
                 IsLockFinal = false,
@@ -28,12 +35,13 @@ namespace CPDJ_VirtualLock
                 PlayerSuccessImagePath = new Uri("pack://application:,,,/ressources/images/top_secret.png"),
                 #endregion
                 #region audio
-                AmbianceMusicSoundPath = new Uri("pack://application:,,,/ressources/sounds/lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3"),
+                // sounds cannot be embed/packed
+                AmbianceMusicSoundPath = new Uri(current_path + "/ressources/sounds/lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3"),
                 IntervalSound = TimeSpan.FromSeconds(15),
-                IntervalSoundPath = new Uri("pack://application:,,,/ressources/sounds/noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3"),
-                PlayerBadInputSoundPath = new Uri("pack://application:,,,/ressources/sounds/science_fiction_computer_glitch_or_malfunction_004.mp3"),
-                PlayerDefeatSoundPath = new Uri("pack://application:,,,/ressources/sounds/zapsplat_explosion_large_boom_slight_distance_25207.mp3"),
-                PlayerSuccessSoundPath = new Uri("pack://application:,,,/ressources/sounds/app_alert_tone_ringtone_002.mp3")
+                IntervalSoundPath = new Uri(current_path + "/ressources/sounds/noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3"),
+                PlayerBadInputSoundPath = new Uri(current_path + "/ressources/sounds/science_fiction_computer_glitch_or_malfunction_004.mp3"),
+                PlayerDefeatSoundPath = new Uri(current_path + "/ressources/sounds/zapsplat_explosion_large_boom_slight_distance_25207.mp3"),
+                PlayerSuccessSoundPath = new Uri(current_path + "/ressources/sounds/app_alert_tone_ringtone_002.mp3")
                 #endregion
             };
 

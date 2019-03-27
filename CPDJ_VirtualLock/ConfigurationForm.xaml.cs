@@ -43,6 +43,7 @@ namespace CPDJ_VirtualLock
         }
 
         #region Binding wrappers
+        // todo as binding path
         public bool IsLockFinalWrapper
         {   // IsChecked ? enable/disable ui_TextBoxDurationTime
             set

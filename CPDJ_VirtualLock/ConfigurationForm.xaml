@@ -28,6 +28,11 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!--Totale duration-->
@@ -82,8 +87,7 @@
                     <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerSuccessImagePathAsImageSource"/>
                     <!--Tag="PlayerSuccessImagePath"-->
                     <TextBox Name="ui_PlayerSuccessImagePath" Text="{Binding PlayerSuccessImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         TextChanged="TextBox_PathValue_TextChanged"
-                         ToolTip="Double click to open a file-picker"/>
+                             TextChanged="TextBox_PathValue_TextChanged"/>
                 </DockPanel>
                 <Image Height="100"
                        Name="ui_PlayerSuccessImage"
@@ -93,20 +97,80 @@
 
             <!--player_defeat_image_path-->
             <Label Grid.Row="6" Grid.Column="0"
-               Content="Defaite : Image"
+                   Content="Defaite : Image"
                    Foreground="Gray" FontWeight="Bold"/>
             <StackPanel Grid.Row="6" Grid.Column="1" >
                 <DockPanel LastChildFill="True">
                     <Button Content="selection fichier" Click="button_PickImageFile" Tag="PlayerDefeatImagePathAsImageSource"/>
                     <TextBox Name="ui_PlayerDefeatImagePath" Text="{Binding PlayerDefeatImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         TextChanged="TextBox_PathValue_TextChanged"
-                         ToolTip="Double click to open a file-picker"/>
+                         TextChanged="TextBox_PathValue_TextChanged"/>
                 </DockPanel>
                 <Image Height="100"
                        Name="ui_PlayerDefeatImage"
                        Source="{Binding PlayerDefeatImagePathAsImageSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        MouseDown="image_MouseDown_selectSourceFile"/>
             </StackPanel>
+
+            <!--AmbianceMusicSoundPath-->
+            <Label Grid.Row="7" Grid.Column="0"
+                   Content="Musique : ambiance"
+                   Foreground="Gray" FontWeight="Bold"/>
+            <StackPanel Grid.Row="7" Grid.Column="1">
+                <TextBox
+                    TextChanged="TextBox_PathValue_TextChanged"
+                    Text="{Binding AmbianceMusicSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <local:SoundPlayer x:Name="ui_AmbianceSoundPlayer"
+                                   MediaSource="{Binding AmbianceMusicSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <!--PlayerDefeatSoundPath-->
+            <Label Grid.Row="8" Grid.Column="0"
+                   Content="Musique : Son de defaite"
+                   Foreground="Gray" FontWeight="Bold"/>
+            <StackPanel Grid.Row="8" Grid.Column="1">
+                <TextBox
+                    TextChanged="TextBox_PathValue_TextChanged"
+                    Text="{Binding PlayerDefeatSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <local:SoundPlayer x:Name="ui_PlayerDefeatSoundPath"
+                                   MediaSource="{Binding PlayerDefeatSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            
+            <!--PlayerSuccessSoundPath-->
+            <Label Grid.Row="9" Grid.Column="0"
+                   Content="Musique : Son de defaite"
+                   Foreground="Gray" FontWeight="Bold"/>
+            <StackPanel Grid.Row="9" Grid.Column="1">
+                <TextBox
+                    TextChanged="TextBox_PathValue_TextChanged"
+                    Text="{Binding PlayerSuccessSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <local:SoundPlayer x:Name="ui_PlayerSuccessSoundPath"
+                                   MediaSource="{Binding PlayerSuccessSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            
+            <!--PlayerBadInputSoundPath-->
+            <Label Grid.Row="10" Grid.Column="0"
+                   Content="Musique : Son de defaite"
+                   Foreground="Gray" FontWeight="Bold"/>
+            <StackPanel Grid.Row="10" Grid.Column="1">
+                <TextBox
+                    TextChanged="TextBox_PathValue_TextChanged"
+                    Text="{Binding PlayerBadInputSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <local:SoundPlayer x:Name="ui_PlayerBadInputSoundPath"
+                                   MediaSource="{Binding PlayerBadInputSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            
+            <!--IntervalSoundPath-->
+            <Label Grid.Row="11" Grid.Column="0"
+                   Content="Musique : Son de defaite"
+                   Foreground="Gray" FontWeight="Bold"/>
+            <StackPanel Grid.Row="11" Grid.Column="1">
+                <TextBox
+                    TextChanged="TextBox_PathValue_TextChanged"
+                    Text="{Binding IntervalSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <local:SoundPlayer x:Name="ui_IntervalSoundPath"
+                                   MediaSource="{Binding IntervalSoundPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
         </Grid>
         <Button Content="Valider" Click="validate"/>
     </StackPanel>
