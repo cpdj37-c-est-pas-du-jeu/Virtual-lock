@@ -80,6 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SoundPlayer.xaml.cs">
+      <DependentUpon>SoundPlayer.xaml</DependentUpon>
+    </Compile>
     <Page Include="ConfigurationForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +103,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SoundPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -166,12 +173,24 @@
     <Resource Include="ressources\images\icons\missing_image.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ressources\sounds\app_alert_tone_ringtone_002.mp3" />
-    <Content Include="ressources\sounds\Blastwave_FX_ChurchBells_BW.60957.mp3" />
-    <Content Include="ressources\sounds\lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3" />
-    <Content Include="ressources\sounds\noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3" />
-    <Content Include="ressources\sounds\science_fiction_computer_glitch_or_malfunction_004.mp3" />
-    <Content Include="ressources\sounds\zapsplat_explosion_large_boom_slight_distance_25207.mp3" />
+    <Content Include="ressources\sounds\app_alert_tone_ringtone_002.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ressources\sounds\Blastwave_FX_ChurchBells_BW.60957.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="ressources\sounds\lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="ressources\sounds\noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ressources\sounds\science_fiction_computer_glitch_or_malfunction_004.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ressources\sounds\zapsplat_explosion_large_boom_slight_distance_25207.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
