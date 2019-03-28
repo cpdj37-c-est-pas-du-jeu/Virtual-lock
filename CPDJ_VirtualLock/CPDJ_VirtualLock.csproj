@@ -179,9 +179,9 @@
     <Content Include="ressources\sounds\Blastwave_FX_ChurchBells_BW.60957.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="ressources\sounds\lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3">
+    <Content Include="ressources\sounds\lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <Content Include="ressources\sounds\noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
