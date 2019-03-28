@@ -22,13 +22,15 @@ namespace CPDJ_VirtualLock
 
         private Configuration LoadConfiguration()
         {
+            #region current directory
             var current_path = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             if (current_path.Last() != '/' && current_path.Last() != '\\')
                 current_path += '/';
 
             if (!Directory.Exists(current_path))
                 throw new Exception(current_path + "\n\nBad execution directory. Make sure that all provided ressources are correct. If not, reinstall.");
-
+            #endregion
+            #region sounds ressource directory
             var sounds_ressource_path = CombineUri(current_path, "ressources/sounds").AbsolutePath;
             if (sounds_ressource_path.Last() != '/' && sounds_ressource_path.Last() != '\\')
                 sounds_ressource_path += '/';
@@ -36,6 +38,7 @@ namespace CPDJ_VirtualLock
 
             if (!Directory.Exists(current_path + "ressources/sounds"))
                 throw new Exception(sounds_ressource_path + "\n\nBad sounds ressources directory. Make sure that all provided ressources are correct. If not, reinstall.");
+            #endregion
 
             var configuration = new Configuration
             {   // default values
@@ -59,9 +62,10 @@ namespace CPDJ_VirtualLock
                 #endregion
             };
 
+            var configuration_file_path = CombineUri(current_path, "configuration.xml").AbsolutePath;
             try
             {
-                Serializer.DeSerialize(Configuration.file_path, out configuration);
+                Serializer.DeSerialize(configuration_file_path, out configuration);
             }
             catch (Exception) { }
 
@@ -71,11 +75,7 @@ namespace CPDJ_VirtualLock
             if (!configuration.IsValid)
                 throw new Exception("CPDJ_VirtualLock.VL_App_Startup : Invalid configuration");
 
-            try
-            {
-                Serializer.Serialize(Configuration.file_path, configuration);
-            }
-            catch (Exception) { }
+            Serializer.Serialize(configuration_file_path, configuration);
 
             return configuration;
         }
@@ -91,9 +91,19 @@ namespace CPDJ_VirtualLock
             }
             catch (Exception ex)
             {
+                String error_message = String.Format
+                (
+                    "Please report this issue at :\r\n" +
+                    "https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/issues" +
+                    "\r\n\r\n {0}",
+                    ex.Message
+                );
+
+                if (ex.InnerException != null)
+                    error_message += "\r\n\r\n" + ex.InnerException.Message;
+
                 MessageBox.Show(
-                    "Please report this issue at :\r\n"
-                    + "https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/issues" + "\r\n\r\n" + ex.Message,
+                    error_message,
                     "CPDJ Virtual-lock : Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Debug.WriteLine(ex.Message);
             }
