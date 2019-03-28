@@ -45,8 +45,8 @@ namespace CPDJ_VirtualLock
             set
             {
                 ui_MediaPlayer.Stop();
-                SetValue(MediaSourceProperty, value);
                 ui_MediaPlayer.Position = TimeSpan.Zero;
+                SetValue(MediaSourceProperty, value);
                 RaisePropertyChange();
             }
         }
@@ -116,6 +116,7 @@ namespace CPDJ_VirtualLock
         private void ui_ButtonStop_Click(object sender, RoutedEventArgs e)
         {
             ui_MediaPlayer.Stop();
+            ui_MediaPlayer.Position = TimeSpan.Zero;
         }
         private void ui_ButtonPause_Click(object sender, RoutedEventArgs e)
         {
