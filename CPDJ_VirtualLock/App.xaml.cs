@@ -15,13 +15,27 @@ namespace CPDJ_VirtualLock
     /// </summary>
     public partial class App : Application
     {
+        static private Uri CombineUri(string base_URI, string relative_or_absolute_URI)
+        {
+            return new Uri(new Uri(base_URI), relative_or_absolute_URI);
+        }
+
         private Configuration LoadConfiguration()
         {
             var current_path = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            if (current_path.Last() != '/' && current_path.Last() != '\\')
+                current_path += '/';
 
-
-            if (!Directory.Exists(current_path + "/ressources/sounds"))
+            if (!Directory.Exists(current_path))
                 throw new Exception(current_path + "\n\nBad execution directory. Make sure that all provided ressources are correct. If not, reinstall.");
+
+            var sounds_ressource_path = CombineUri(current_path, "ressources/sounds").AbsolutePath;
+            if (sounds_ressource_path.Last() != '/' && sounds_ressource_path.Last() != '\\')
+                sounds_ressource_path += '/';
+            sounds_ressource_path = Uri.UnescapeDataString(sounds_ressource_path);
+
+            if (!Directory.Exists(current_path + "ressources/sounds"))
+                throw new Exception(sounds_ressource_path + "\n\nBad sounds ressources directory. Make sure that all provided ressources are correct. If not, reinstall.");
 
             var configuration = new Configuration
             {   // default values
@@ -36,12 +50,12 @@ namespace CPDJ_VirtualLock
                 #endregion
                 #region audio
                 // sounds cannot be embed/packed
-                AmbianceMusicSoundPath = new Uri(current_path + "/ressources/sounds/lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3"),
+                AmbianceMusicSoundPath = CombineUri(sounds_ressource_path, "lesser_vibes_Drone_Low_Resonance_Cave_Underground_Tunnel_Uneasy_046.mp3"),
                 IntervalSound = TimeSpan.FromSeconds(15),
-                IntervalSoundPath = new Uri(current_path + "/ressources/sounds/noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3"),
-                PlayerBadInputSoundPath = new Uri(current_path + "/ressources/sounds/science_fiction_computer_glitch_or_malfunction_004.mp3"),
-                PlayerDefeatSoundPath = new Uri(current_path + "/ressources/sounds/zapsplat_explosion_large_boom_slight_distance_25207.mp3"),
-                PlayerSuccessSoundPath = new Uri(current_path + "/ressources/sounds/app_alert_tone_ringtone_002.mp3")
+                IntervalSoundPath = CombineUri(sounds_ressource_path, "noisecreations_SFX-NCFREE02_Bell-Church-Large.mp3"),
+                PlayerBadInputSoundPath = CombineUri(sounds_ressource_path, "science_fiction_computer_glitch_or_malfunction_004.mp3"),
+                PlayerDefeatSoundPath = CombineUri(sounds_ressource_path, "zapsplat_explosion_large_boom_slight_distance_25207.mp3"),
+                PlayerSuccessSoundPath = CombineUri(sounds_ressource_path, "app_alert_tone_ringtone_002.mp3")
                 #endregion
             };
 

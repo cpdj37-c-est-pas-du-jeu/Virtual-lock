@@ -255,7 +255,7 @@ namespace CPDJ_VirtualLock
             (
                 value != null &&
                 (value.Scheme == "pack" ||
-                (value.IsFile && File.Exists(value.AbsolutePath)))
+                (value.IsFile && File.Exists(Uri.UnescapeDataString(value.AbsolutePath))))
             );
         }
         private bool is_valid()

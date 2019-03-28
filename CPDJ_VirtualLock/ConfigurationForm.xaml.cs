@@ -177,10 +177,10 @@ namespace CPDJ_VirtualLock
         private void TextBox_PathValue_TextChanged(object sender, TextChangedEventArgs e)
         {
             var text_box = sender as TextBox;
-
             var value = new Uri(text_box.Text);
 
-            if (value.Scheme != "pack" && (!value.IsFile || !File.Exists(value.AbsolutePath)))
+            if (value.Scheme != "pack" &&
+                (!value.IsFile || !File.Exists(Uri.UnescapeDataString(value.AbsolutePath))))
             {
                 text_box.Background = Brushes.LightPink;
             }
