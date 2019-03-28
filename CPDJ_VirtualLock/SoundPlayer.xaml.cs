@@ -109,6 +109,8 @@ namespace CPDJ_VirtualLock
         }
         private void ui_ButtonPlay_Click(object sender, RoutedEventArgs e)
         {
+            if (ui_MediaPlayer.Position == ui_MediaPlayer.NaturalDuration)
+                ui_MediaPlayer.Position = TimeSpan.Zero;
             ui_MediaPlayer.Play();
         }
         private void ui_ButtonStop_Click(object sender, RoutedEventArgs e)
