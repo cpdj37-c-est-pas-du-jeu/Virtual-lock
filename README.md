@@ -17,8 +17,9 @@
 
 * [Description](#Description)
 * [Installation](#Installation)
-* [Utilisation : Configuration](#Utilisation-:-Configuration)
-* [Utilisation : Le jeu](#Utilisation-:-Le-jeu)
+* [Utilisation](#Utilisation)
+  * [Configuration](#Configuration)
+  * [Le jeu](#Le-jeu)
 
 ## Description
 
@@ -43,7 +44,9 @@ Elements :
 
 5 - L'installation est un succes<br>
 
-## Utilisation : Configuration
+## Utilisation
+
+### Configuration
 
 1 - Rendez-vous dans le dossier d'installation et cliquez sur l'executable **CPDJ_VirtualLock.exe**<br>
 
@@ -63,7 +66,7 @@ Elements :
 
 3 - Validez votre formulaire en cliquant sur le bouton "Valider" en bas de celui-ci<br>
 
-## Utilisation : Le jeu
+### Le jeu
 
 > Dans cet exemple, nous utiliserons les valeurs de configuration fournient par defaut
 
