@@ -7,24 +7,18 @@
 
 > **Warning** : This project and related release binaries are distributed **AS-IS**.<br>
 > *C'est (pas) du jeu* association **IS NOT responsible** of any issue, crash, bug or harm done to your computer
+> Thanks you for your [bugs report](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/issues)
 
 > **Attention** : Ce project et ses executables sont fournis **EN L'ETAT**.<br>
 > L'association *C'est (pas) du jeu* **n'est pas responsable** de quelquonques problemes, plantage, bug, ou dommage cause a votre materiel informatique
+> Merci de [rapporter les bugs](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/issues)
 
 ## Description
 
 Elements :
 - Compte a rebour
-- Si le compte a rebour arrive a son echeance, echec.
-- Si bonne saisie du mot-de-passe, arret du compte a rebour et affichage d'une image/video
-
-Fonctionnalites additionnels :
-- Configuration via formulaire *(sauvegarde entre chaque utilisation)*
-
-Idees d'ajouts :
-- Des evenements ponctuels
-- Des alertes sonores pour rappeler aux joueurs l'echeance (renforce le concepte de pression)
-  > Pour garantir la progression des joueurs : des indices (audio, videos, etc) se debloquent a certains intervales
+- Si le compte a rebour arrive a son echeance, **defaite**.
+- Si bonne saisie du mot-de-passe, **victoire**
 
 [Sounds](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/tree/master/CPDJ_VirtualLock/ressources/sounds/) are from the royalty free music [zapsplat](https://www.zapsplat.com)
 
@@ -82,17 +76,17 @@ Composition de la fenetre :
 
 ![Fenetre de jeu](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/blob/master/misc/app_screenshots/latest/window_in_game.PNG)
 
-2 - Saisie du mot de passe
+2 - Saisie du **mot de passe**
 - En cas de saisie invalide, le compteur de saisie invalide decremente. Si il atteint 0, la saisie est bloquee pour un certain temps. Une barre de progression apparait alors pour indiquer la duree du blocage.
 
 - En cas de saisie correct, la partie est termine et l'ecran de victoire apparait
 
-3 - Victoire & defaite
+3 - **Victoire** & **defaite**
 
-- En cas de defaite *(le temps total est ecoule)*, l'image de defaite apparait :
+- En cas de **defaite** *(le temps total est ecoule)*, l'image de defaite apparait :
 
-![Image de defaite par defaut](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/blob/master/misc/app_screenshots/latest/window_success.PNG)
+![Image de defaite par defaut](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/blob/master/misc/app_screenshots/latest/window_defeat.PNG)
 
-- En cas de victoire *(saisie du bon mot de passe)*, l'image de victoire apparait :
+- En cas de **victoire** *(saisie du bon mot de passe)*, l'image de victoire apparait :
 
 ![Image de victoire par defaut](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/blob/master/misc/app_screenshots/latest/window_success.PNG)
