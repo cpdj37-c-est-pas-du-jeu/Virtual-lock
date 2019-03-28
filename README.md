@@ -13,6 +13,13 @@
 > L'association *C'est (pas) du jeu* **n'est pas responsable** de quelquonques problemes, plantage, bug, ou dommage cause a votre materiel informatique
 > Merci de [rapporter les bugs](https://github.com/cpdj37-c-est-pas-du-jeu/Virtual-lock/issues)
 
+## Table de contenu
+
+* [Description](#Description)
+* [Installation](#Installation)
+* [Utilisation : Configuration](#Utilisation-:-Configuration)
+* [Utilisation : Le jeu](#Utilisation-:-Le-jeu)
+
 ## Description
 
 Elements :
@@ -56,7 +63,7 @@ Elements :
 
 3 - Validez votre formulaire en cliquant sur le bouton "Valider" en bas de celui-ci<br>
 
-## Utilisation : Le jeu *(avec valeurs par defaut)*
+## Utilisation : Le jeu
 
 > Dans cet exemple, nous utiliserons les valeurs de configuration fournient par defaut
 
