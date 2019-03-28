@@ -62,7 +62,8 @@ namespace CPDJ_VirtualLock
                 #endregion
             };
 
-            var configuration_file_path = CombineUri(current_path, "configuration.xml").AbsolutePath;
+            var configuration_file_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CPDJ_Virtual-lock.configuration.xml");
+
             try
             {
                 Serializer.DeSerialize(configuration_file_path, out configuration);

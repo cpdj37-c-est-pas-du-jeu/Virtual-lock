@@ -40,8 +40,6 @@ namespace CPDJ_VirtualLock
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
 
-        public static readonly string file_path = "./configuration.xml";
-
         public Configuration()
         {
             // base.Load();
@@ -107,7 +105,7 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
-        [XmlElement("lock_duration")]
+        [XmlElement("LockDuration")]
         public long LockDurationTicks
         {
             get { return LockDuration.Ticks; }
@@ -132,8 +130,10 @@ namespace CPDJ_VirtualLock
         #region game_over
         [XmlIgnore]
         private readonly Uri defaultMissingImagePath = new Uri("pack://application:,,,/ressources/images/icons/missing_image.png");
+
         [XmlIgnore]
         private Uri _playerDefeatImagePath = null;
+        [XmlIgnore]
         public Uri PlayerDefeatImagePath
         {
             get
@@ -148,8 +148,16 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        [XmlElement("PlayerDefeatImagePath")]
+        public string PlayerDefeatImagePathAsString
+        {
+            get { return PlayerDefeatImagePath.ToString(); }
+            set { PlayerDefeatImagePath = (value == null ? null : new Uri(value.ToString())); }
+        }
+
         [XmlIgnore]
         private Uri _playerSuccessImagePath = null;
+        [XmlIgnore]
         public Uri PlayerSuccessImagePath
         {
             get
@@ -164,11 +172,19 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        [XmlElement("PlayerSuccessImagePath")]
+        public string PlayerSuccessImagePathAsString
+        {
+            get { return PlayerSuccessImagePath.ToString(); }
+            set { PlayerSuccessImagePath = (value == null ? null : new Uri(value.ToString())); }
+        }
         #endregion
 
         #region audio
+        #region AmbianceMusicSoundPath
         [XmlIgnore]
         private Uri _ambianceMusicSoundPath = null;
+        [XmlIgnore]
         public Uri AmbianceMusicSoundPath
         {
             get { return _ambianceMusicSoundPath; }
@@ -178,8 +194,18 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        [XmlElement("AmbianceMusicSoundPath")]
+        public string AmbianceMusicSoundPathAsString
+        {
+            get { return AmbianceMusicSoundPath.ToString(); }
+            set { AmbianceMusicSoundPath = (value == null ? null : new Uri(value.ToString())); }
+        }
+        #endregion
+
+        #region PlayerDefeatSoundPath
         [XmlIgnore]
         private Uri _playerDefeatSoundPath = null;
+        [XmlIgnore]
         public Uri PlayerDefeatSoundPath
         {
             get { return _playerDefeatSoundPath; }
@@ -189,8 +215,18 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        [XmlElement("PlayerDefeatSoundPath")]
+        public string PlayerDefeatSoundPathAsString
+        {
+            get { return PlayerDefeatSoundPath.ToString(); }
+            set { PlayerDefeatSoundPath = (value == null ? null : new Uri(value.ToString())); }
+        }
+        #endregion
+
+        #region PlayerSuccessSoundPath
         [XmlIgnore]
         private Uri _playerSuccessSoundPath = null;
+        [XmlIgnore]
         public Uri PlayerSuccessSoundPath
         {
             get { return _playerSuccessSoundPath; }
@@ -200,8 +236,18 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        [XmlElement("PlayerSuccessSoundPath")]
+        public string PlayerSuccessSoundPathAsString
+        {
+            get { return PlayerSuccessSoundPath.ToString(); }
+            set { PlayerSuccessSoundPath = (value == null ? null : new Uri(value.ToString())); }
+        }
+        #endregion
+
+        #region PlayerBadInputSoundPath
         [XmlIgnore]
         private Uri _playerBadInputSoundPath = null;
+        [XmlIgnore]
         public Uri PlayerBadInputSoundPath
         {
             get { return _playerBadInputSoundPath; }
@@ -211,8 +257,18 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        [XmlElement("PlayerBadInputSoundPath")]
+        public string PlayerBadInputSoundPathAsString
+        {
+            get { return PlayerBadInputSoundPath.ToString(); }
+            set { PlayerBadInputSoundPath = (value == null ? null : new Uri(value.ToString())); }
+        }
+        #endregion
+
+        #region IntervalSoundPath
         [XmlIgnore]
         private Uri _intervalSoundPath = null;
+        [XmlIgnore]
         public Uri IntervalSoundPath
         {
             get { return _intervalSoundPath; }
@@ -222,6 +278,13 @@ namespace CPDJ_VirtualLock
                 RaisePropertyChange();
             }
         }
+        [XmlElement("IntervalSoundPath")]
+        public string IntervalSoundPathAsString
+        {
+            get { return IntervalSoundPath.ToString(); }
+            set { IntervalSoundPath = (value == null ? null : new Uri(value.ToString())); }
+        }
+        #endregion
 
         [XmlIgnore]
         private TimeSpan _intervalSound = TimeSpan.Zero;
